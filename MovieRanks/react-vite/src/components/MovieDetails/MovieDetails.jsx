@@ -8,6 +8,10 @@ const MovieDetails = ({movie})=>{
     const dispatch = useDispatch()
     const [isLoaded, setIsLoaded] = useState(false)
 
+    handleMovieClick = ()=>{
+
+    }
+
     useEffect(()=>{
         if(movie){
             setIsLoaded(true)
@@ -16,7 +20,9 @@ const MovieDetails = ({movie})=>{
 
     return(<>
     {isLoaded && <div>
-        
+        <div onClick={handleMovieClick}>
+
+        </div>
         </div>}
     </>)
 }
