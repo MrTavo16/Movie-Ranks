@@ -11,14 +11,13 @@ class Review(db.Model):
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer())
-    movie_id = db.Column(db.Integer())
+    user_id = db.Column(db.Integer(), db.ForeignKey(add_prefix_for_prod("users.id")))
+    movie_id = db.Column(db.Integer(), db.ForeignKey(add_prefix_for_prod("movies.id")))
     review =db.Column(db.String(255), nullable=False)
     stars =db.Column(db.Integer, nullable=False)
 
-    user = relationship("User", back_populates="ranked_list")
-    movie = relationship("Movie", back_populates="ranked_list")
-    ranked_list = relationship("Ranked_List", back_populates="user")
+    user = relationship("User", back_populates="review")
+    movie = relationship("Movie", back_populates="review")
     
     def to_dict(self):
         return {

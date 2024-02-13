@@ -3,6 +3,8 @@ import LoginFormPage from '../components/LoginFormPage';
 import SignupFormPage from '../components/SignupFormPage';
 import HomePage from '../components/HomePage/HomePage';
 import Layout from './Layout';
+import MovieDetails from '../components/MovieDetails/MovieDetails';
+import ProfilePage from '../components/ProfilePage/ProfilePage';
 
 export const router = createBrowserRouter([
   {
@@ -20,6 +22,14 @@ export const router = createBrowserRouter([
         path: "signup",
         element: <SignupFormPage />,
       },
+      {
+        path:"movies/:movieId",
+        element:<MovieDetails />
+      },
+      {
+        path:'profile',
+        element:<ProfilePage />
+      }
     ],
   },
 ]);

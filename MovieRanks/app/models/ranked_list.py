@@ -9,8 +9,8 @@ class Ranked_List(db.Model):
         __table_args__ = {'schema': SCHEMA}
     
     id = db.Column(db.Integer(), primary_key = True)
-    user_id = db.Column(db.Integer())
-    movie_id = db.Column(db.Integer())
+    user_id = db.Column(db.Integer(), db.ForeignKey(add_prefix_for_prod("users.id")))
+    movie_id = db.Column(db.Integer(), db.ForeignKey(add_prefix_for_prod("movies.id")))
     
     user = relationship("User", back_populates="ranked_list")
     movie = relationship("Movie", back_populates="ranked_list")

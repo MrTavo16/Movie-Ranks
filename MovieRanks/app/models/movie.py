@@ -10,7 +10,10 @@ class Movie(db.Model):
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer(), primary_key = True)
+    movie_id = db.Column(db.Integer(), nullable = False, unique=True)
     title = db.Column(db.String(255), nullable = False)
+    num_reviews = db.Column(db.Integer())
+    avg_star_rating = db.Column(db.Integer())
     description = db.Column(db.String(255))
     img_id = db.Column(db.Integer())
 
@@ -21,6 +24,8 @@ class Movie(db.Model):
         return {
             'id': self.id,
             'title': self.title,
+            'num_reviews': self.num_reviews,
+            'avg_star_rating':self.avg_star_rating,
             'description': self.description,
             'img_url':self.img_url
         }
