@@ -2,10 +2,12 @@ import { useState } from "react";
 import { thunkLogin } from "../../redux/session";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
+import { useNavigate } from "react-router-dom";
 import "./LoginForm.css";
 
 function LoginFormModal() {
   const dispatch = useDispatch();
+  const navigate = useNavigate()
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
@@ -24,9 +26,26 @@ function LoginFormModal() {
     if (serverResponse) {
       setErrors(serverResponse);
     } else {
+      navigate('/')
       closeModal();
     }
   };
+
+  const handleDemo = async ()=>{
+    setEmail('demo@aa.io')
+    setPassword('password')
+    const serverResponse = await dispatch(
+      thunkLogin({
+        "email":"demo@aa.io",
+        "password":"password"
+      })
+    )
+    if (serverResponse) {
+      setErrors(serverResponse);
+    } else {
+      closeModal();
+    }
+  }
 
   return (
     <>
@@ -54,6 +73,7 @@ function LoginFormModal() {
         {errors.password && <p>{errors.password}</p>}
         <button type="submit">Log In</button>
       </form>
+        <div onClick={handleDemo}>Demo User</div>
     </>
   );
 }

@@ -14,3 +14,10 @@ class Ranked_List(db.Model):
     
     user = relationship("User", back_populates="ranked_list")
     movie = relationship("Movie", back_populates="ranked_list")
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'user_id': self.user_id,
+            'movie_id': self.movie_id,
+        }

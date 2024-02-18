@@ -38,9 +38,10 @@ def upgrade():
     sa.Column("movie_id", sa.Integer, nullable = False),
     sa.Column("title",sa.String(length=255), nullable=False),
     sa.Column("num_reviews", sa.Integer()),
+    sa.Column("star_count", sa.Integer()),
     sa.Column("avg_star_rating", sa.Integer()),
     sa.Column("description", sa.String(length=255), nullable=False),
-    sa.Column("img_id", sa.Integer()),
+    sa.Column("poster_path", sa.String(length=255)),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('movie_id')
     )
@@ -56,7 +57,7 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable = False),
     sa.Column("user_id", sa.Integer, nullable = False),
     sa.Column("movie_id",sa.Integer, nullable = False),
-    sa.Column("reviews", sa.String(length=255), nullable=False),
+    sa.Column("review", sa.String(length=255), nullable=False),
     sa.Column("stars", sa.Integer, nullable = False),
     sa.ForeignKeyConstraint(['movie_id'], ['movies.id'], ),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
