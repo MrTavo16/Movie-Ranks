@@ -8,11 +8,13 @@ import thunk from "redux-thunk";
 import sessionReducer from "./session";
 import movieReducer from "./movie";
 import reviewReducer from "./reviews";
+import rankedListReducer from './rankedList'
 
 const rootReducer = combineReducers({
   session: sessionReducer,
   movies:movieReducer,
-  reviews:reviewReducer
+  reviews:reviewReducer,
+  ranked_lists: rankedListReducer
 });
 
 let enhancer;

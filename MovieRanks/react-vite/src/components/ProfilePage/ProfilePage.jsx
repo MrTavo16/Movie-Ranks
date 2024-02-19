@@ -4,9 +4,15 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useModal } from "../../context/Modal";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
-import { getMovieById } from "../../redux/movie";
 
 const ProfilePage = ()=>{
-    
+    const [isLoaded, setIsLoaded] = useState(false)
+    const user = useSelector(state => state.session).user
+    console.log(user)
+    return(<>
+        {isLoaded && <div>
+        
+        </div>}
+    </>)
 }   
 export default ProfilePage
