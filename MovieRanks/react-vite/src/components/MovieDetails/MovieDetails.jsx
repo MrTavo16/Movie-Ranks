@@ -45,7 +45,7 @@ const MovieDetails = () => {
     useEffect(() => {
         // console.log(spotId)
         // const currErrors = {}
-        // console.log(reviews[0], '---------')
+        // console.log(movie)
         
         if(user){
             setCan(true)
@@ -172,7 +172,7 @@ const MovieDetails = () => {
                 "user_id": user.id,
                 "movie_id": movie.movie_id,
                 "review": reviewText,
-                "stars": stars
+                "stars": 1
             })).then(() => {
                 setReviewText('')
                 setStars(0)
@@ -185,10 +185,10 @@ const MovieDetails = () => {
     // console.log(can, '//////////')
     // console.log(movie)
     return (<>
-        {isLoaded && <div className="movie-container">
+        {isLoaded && <div >
             <div>
                 {movie && <h1>{movie.title}</h1>}
-                {movie && <div className='img-container'><img src={imgUrl + movie.poster_path} /></div>}
+                {movie && <div><img src={imgUrl + movie.poster_path} /></div>}
             </div>
             {movie && <div>{movie.description}</div>}
             {user && <div>
@@ -196,7 +196,7 @@ const MovieDetails = () => {
                 <div>
                     <textarea value={reviewText} onChange={(e) => setReviewText(e.target.value)} placeholder="Write a Review"></textarea>
                 </div>
-                <div className='star-container'>
+                {/* <div className='star-container'>
                     Stars
                     <div id='star-five' onClick={() => setStars(5)}>
                         <span style={{ color: selected4 }} className="fa-solid fa-star"></span>
@@ -213,7 +213,7 @@ const MovieDetails = () => {
                     <div id='star-one' onClick={() => setStars(1)}>
                         <span className="fa-solid fa-star" style={{ color: selected }}></span>
                     </div>
-                </div>
+                </div> */}
 
                 {can ? <div onClick={handleReviewSubmit}>Post Review</div>:<div>Only one review per person!</div>}
 
@@ -230,7 +230,7 @@ const MovieDetails = () => {
                         return <div key={review.id}>
                             <h4>{user.username}</h4>
                             <p>{review.review}</p>
-                            <div>{review.stars}</div>
+                            {/* <div>{review.stars}</div> */}
                             <div>
                                 {!edit ? <div onClick={handleEditReview}>edit</div>:<></>}
                                 <div onClick={handleDelete}>delete</div>
@@ -238,7 +238,10 @@ const MovieDetails = () => {
                         </div>
                     }
                     return <div key={review.id}>
-                        <h4>username here</h4>
+                        <h4 onClick={(e)=>{
+                            e.preventDefault()
+                            navigate(`/profile/${review.user_id}`)
+                        }}>{review.username}</h4>
                         <p>{review.review}</p>
                     </div>
                 }

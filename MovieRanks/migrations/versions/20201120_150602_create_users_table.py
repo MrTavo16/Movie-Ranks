@@ -57,6 +57,7 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable = False),
     sa.Column("user_id", sa.Integer, nullable = False),
     sa.Column("movie_id",sa.Integer, nullable = False),
+    sa.Column("username", sa.String(length=255)),
     sa.Column("review", sa.String(length=255), nullable=False),
     sa.Column("stars", sa.Integer, nullable = False),
     sa.ForeignKeyConstraint(['movie_id'], ['movies.id'], ),

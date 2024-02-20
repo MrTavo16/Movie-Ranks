@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, request, abort
 
 from flask_login import login_required
-from app.models import Movie, db, Review
+from app.models import Movie, db, Review, User
 
 movie_routes = Blueprint("movies", __name__)
 
@@ -42,26 +42,32 @@ def get_movie_reviews_by_id(movie_id):
 @movie_routes.route('/<int:movie_id>/reviews', methods=['POST'])
 def add_movie_review(movie_id):
     data = request.json
-    if not data['review'] or data['stars'] > 6 or data['stars']<=0:
-        return{'message':'reviews cant be empty and stars have to be between 1 and 5'}
-    movie_in_arr = Movie.query.filter(Movie.movie_id == int(movie_id))
-    movie = movie_in_arr[0].to_dict()
-    if data['stars'] and data['review']:
-        if not movie['num_reviews'] and not movie['star_count']:
-            movie['num_reviews'] = 1
-            movie['star_count'] = data['stars']
-            movie['avg_star_rating'] = data['stars']
-        else:
-            movie['num_reviews'] += 1
-            movie['star_count'] += data['stars']
-            movie['avg_star_rating'] = movie['star_count'] / movie['num_reviews'] 
+    users= User.query.get(data['user_id'])
+    user = users.to_dict()
+    # hit = False
+    # if not data['review'] or data['stars'] > 6 or data['stars']<=0:
+    #     return{'message':'reviews cant be empty and stars have to be between 1 and 5'}
+    # movie_in_arr = Movie.query.filter(Movie.movie_id == int(movie_id))
+    # movie = movie_in_arr[0].to_dict()
+    # if data['stars'] and data['review']:
+    #     if not movie['num_reviews'] and not movie['star_count']:
+    #         hit = True
+            # movie['num_reviews'] = 1
+            # movie['star_count'] = data['stars']
+            # movie['avg_star_rating'] = data['stars']
+        # else:
+        #     hit = True
+            # movie['num_reviews'] += 1
+            # movie['star_count'] += data['stars']
+            # movie['avg_star_rating'] = movie['star_count'] / movie['num_reviews'] 
 
     user_id = data['user_id']
+    username = user['username']
     movie_id = movie_id
     review = data['review']
     stars = data['stars']
-    new_review = Review(user_id = user_id, movie_id = movie_id, review = review, stars = stars)
+    new_review = Review(user_id = user_id, movie_id = movie_id, username = username, review = review, stars = stars)
     db.session.add(new_review)
     db.session.commit()
-
+    # return {"hit":f"{username}"}
     return new_review.to_dict()

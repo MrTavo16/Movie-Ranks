@@ -27,7 +27,7 @@ export const router = createBrowserRouter([
         element:<MovieDetails />
       },
       {
-        path:'profile',
+        path:'profile/:profileId',
         element:<ProfilePage />
       }
     ],

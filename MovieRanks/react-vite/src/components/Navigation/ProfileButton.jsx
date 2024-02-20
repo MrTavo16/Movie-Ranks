@@ -58,7 +58,7 @@ function ProfileButton() {
             <>
               <li>{user.username}</li>
               <li>{user.email}</li>
-              <li onClick={()=>navigate('/profile')}>See Details</li>
+              <li onClick={()=>navigate(`/profile/${user.id}`)}>See Details</li>
               <li>
                 <button onClick={logout}>Log Out</button>
               </li>

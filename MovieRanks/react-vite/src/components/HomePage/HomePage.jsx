@@ -7,7 +7,7 @@ import MovieDetails from "../MovieDetails/MovieDetails";
 import { loadMovies, getAllMovies } from "../../redux/movie";
 import { Navigate, useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
-import './HomePage'
+import './HomePage.css'
 
 
 const HomePage = () =>{
@@ -24,13 +24,13 @@ const HomePage = () =>{
 
     return(<>
         {isLoaded && <div>
-            <div>
+            <div id="home">
             {Object.values(movies).map(ele=>{
-                return <div id="home" key={ele.id} movie={ele} onClick={()=>navigate(`/movies/${ele.id}`)}>
-                    <div>
+                return <div key={ele.id} movie={ele} onClick={()=>navigate(`/movies/${ele.id}`)}>
+                    <div className='img-container'>
                         <img src={imgUrl + ele.poster_path}/>
                     </div>
-                    <div>{ele.title}</div>
+                    <h1>{ele.title}</h1>
                 </div>
             })}
             </div>
