@@ -13,7 +13,7 @@ class Ranked_List(db.Model):
     movie_id = db.Column(db.Integer(), db.ForeignKey(add_prefix_for_prod("movies.id")))
     
     user = relationship("User", back_populates="ranked_list")
-    movie = relationship("Movie", back_populates="ranked_list")
+    movie = relationship("Movie", back_populates="ranked_list", lazy='select')
 
     def to_dict(self):
         return {

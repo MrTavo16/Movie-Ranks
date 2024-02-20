@@ -6,6 +6,7 @@ import { useModal } from "../../context/Modal";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { getMovieById } from "../../redux/movie";
 import reviewReducer, { getReviewsByMovieId, createReview, updateReview, deleteReview } from "../../redux/reviews";
+import './MovieDetails'
 
 
 const MovieDetails = () => {
@@ -184,10 +185,10 @@ const MovieDetails = () => {
     // console.log(can, '//////////')
     // console.log(movie)
     return (<>
-        {isLoaded && <div>
+        {isLoaded && <div className="movie-container">
             <div>
                 {movie && <h1>{movie.title}</h1>}
-                {movie && <div><img src={imgUrl + movie.poster_path} /></div>}
+                {movie && <div className='img-container'><img src={imgUrl + movie.poster_path} /></div>}
             </div>
             {movie && <div>{movie.description}</div>}
             {user && <div>
