@@ -19,12 +19,12 @@ export const deleteRankedList = (rankedList) => ({
     rankedList
 })
 
-export const getRankedListByUserId = (user) => async (dispatch) => {
-    const res = await fetch(`/api/ranked_lists/${user.id}`)
+export const getRankedListByUserId = (userId) => async (dispatch) => {
+    const res = await fetch(`/api/ranked_lists/${userId}`)
 
     if (res.ok) {
         const data = await res.json()
-        // console.log(data,'--------------')
+        // console.log(data, '--------------')
         dispatch(LoadRankedList(data))
         return data
     }

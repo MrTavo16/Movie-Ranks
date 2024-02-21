@@ -32,6 +32,8 @@ def ranked_list_by_user_id(user_id):
         movie_arr.append(obj)
         count += 1
 
+    if not len(movie_arr):
+        return {"rankedList":[user]}
 
     # return movie[0].to_dict()
     # return lists[0].to_dict()
