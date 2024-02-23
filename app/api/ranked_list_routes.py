@@ -21,7 +21,8 @@ def ranked_list_by_user_id(user_id):
         obj = {}
         movie_query = Movie.query.filter(Movie.movie_id == int(movie_id))
         movie_obj = movie_query[0].to_dict()
-
+        movie_obj['ranked_list_id'] = list1['id']
+        movie_obj['name'] = list1['name']
         movie_arr.append(movie_obj)
     movie_arr.append(list1['name'])
 
@@ -65,10 +66,18 @@ def add_ranked_list():
     # db.session.commit()
     return {"arr_len":arr}
 
-# @ranked_list_routes.route('/<int:ranked_list_id>', methods=['PUT'])
-# def edit_ranked_list(ranked_list_id):
-#     data = request.json
-#     ranked_list = Ranked_List.query.get(ranked_list_id)
+@ranked_list_routes.route('/<int:ranked_list_id>', methods=['PUT'])
+def edit_ranked_list(ranked_list_id):
+    data = request.json
+    ranked_list = Ranked_List.query.get(ranked_list_id)
+    movie_arr = data['movies']
+    movies_in_str = ''
+    if movie_arr:
+        for movie in movie_arr:
+            movies_in_str = movies_in_str + f'{movie}'+','
+
+    return {"movies":movies_in_str}
+    # return ranked_list.to_dict()
 
 @ranked_list_routes.route('/<int:ranked_list_id>', methods=['DELETE'])
 def delete_ranked_list(ranked_list_id):
