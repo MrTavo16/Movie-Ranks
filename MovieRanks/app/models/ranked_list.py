@@ -11,6 +11,9 @@ class Ranked_List(db.Model):
     id = db.Column(db.Integer(), primary_key = True)
     user_id = db.Column(db.Integer(), db.ForeignKey(add_prefix_for_prod("users.id")))
     movie_id = db.Column(db.Integer(), db.ForeignKey(add_prefix_for_prod("movies.id")))
+    name = db.Column(db.String(255))
+    movies = db.Column(db.String(255))
+
     
     user = relationship("User", back_populates="ranked_list")
     movie = relationship("Movie", back_populates="ranked_list", lazy='select')
@@ -20,4 +23,6 @@ class Ranked_List(db.Model):
             'id': self.id,
             'user_id': self.user_id,
             'movie_id': self.movie_id,
+            'name':self.name,
+            'movies':self.movies
         }

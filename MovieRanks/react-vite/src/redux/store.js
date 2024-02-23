@@ -9,12 +9,14 @@ import sessionReducer from "./session";
 import movieReducer from "./movie";
 import reviewReducer from "./reviews";
 import rankedListReducer from './rankedList'
+import profileReducer from "./profile";
 
 const rootReducer = combineReducers({
   session: sessionReducer,
   movies:movieReducer,
   reviews:reviewReducer,
-  ranked_lists: rankedListReducer
+  ranked_lists: rankedListReducer,
+  profile: profileReducer
 });
 
 let enhancer;
