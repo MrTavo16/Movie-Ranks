@@ -39,18 +39,21 @@ const MovieDetails = () => {
     const movieArr = rankedList ? rankedList : []
     let reviews
     useEffect(() => {
-        if(movieId && user.id){
-           dispatch(getMovieById(movieId))
-            .then(() => {
-                dispatch(getReviewsByMovieId(movieId))
-            })
-            .then(()=>{
-                dispatch(getRankedListByUserId(user.id))
-            })
-            .then(() => {
-                setIsLoaded(true)
-                setCan(true)
-            }) 
+        if(movieId){
+            if(user.id){
+                dispatch(getMovieById(movieId))
+                .then(() => {
+                    dispatch(getReviewsByMovieId(movieId))
+                })
+                .then(()=>{
+                    dispatch(getRankedListByUserId(user.id))
+                })
+                .then(() => {
+                    setIsLoaded(true)
+                    setCan(true)
+                })                 
+            }
+
         }
         
     }, [isLoaded, reviews, rankedListAdd])
