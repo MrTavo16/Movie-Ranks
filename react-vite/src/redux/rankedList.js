@@ -10,12 +10,12 @@ export const LoadRankedList = (rankedLists) => ({
 })
 
 export const recieveRankedList = (rankedList) => ({
-    type: recieveRankedList,
+    type: RECIEVE_RANKED_LIST,
     rankedList
 })
 
 export const removeRankedList = (rankedList) => ({
-    type: rankedList,
+    type: REMOVE_RANKED_LIST,
     rankedList
 })
 
@@ -94,6 +94,7 @@ const rankedListReducer = (state = {}, action) => {
             return { ...state, [action.rankedList.ranked_list_id]: action.rankedList }
         case REMOVE_RANKED_LIST:
             const newState1 = { ...state }
+            console.log(action.rankedList, '-=-=-=-=-=-=-=-')
             delete newState1[action.rankedList.id]
             return newState1
 

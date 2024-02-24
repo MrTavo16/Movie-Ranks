@@ -32,24 +32,27 @@ const MovieDetails = () => {
     const user = Object.values(useSelector(state => state.session))[0]
     const movie = Object.values(useSelector(state => state.movies))[0]
     const ranked_list_id = Object.keys(useSelector(state => state.ranked_lists))[0]
-    const rankedListObj = useSelector(state => state.ranked_lists)[`${ranked_list_id}`]
-    const rankedList = rankedListObj ? [...rankedListObj]: null
+    const rankedListObj = useSelector(state => state.ranked_lists[`${ranked_list_id}`])
+    console.log(rankedListObj, '-=-=-=-=-')
+    const rankedList = rankedListObj ? [...Object.values(rankedListObj)]: null
     const listName = rankedList ? rankedList.pop() :null
     const movieArr = rankedList ? rankedList : []
-    // console.log(movieArr)
     let reviews
     useEffect(() => {
-        dispatch(getMovieById(movieId))
-        .then(() => {
-            dispatch(getReviewsByMovieId(movieId))
-        })
-        .then(()=>{
-            dispatch(getRankedListByUserId(user.id))
-        })
-        .then(() => {
-            setIsLoaded(true)
-            setCan(true)
-        })
+        if(movieId && user.id){
+           dispatch(getMovieById(movieId))
+            .then(() => {
+                dispatch(getReviewsByMovieId(movieId))
+            })
+            .then(()=>{
+                dispatch(getRankedListByUserId(user.id))
+            })
+            .then(() => {
+                setIsLoaded(true)
+                setCan(true)
+            }) 
+        }
+        
     }, [isLoaded, reviews, rankedListAdd])
     reviews = Object.values(useSelector(state => state.reviews))
     useEffect(() => {
@@ -77,15 +80,7 @@ const MovieDetails = () => {
             }  
         }
         
-
-        // if (reviewText.length < 10) {
-        //     currErrors.reviewText = 'less than 10'
-        // }
-        // if ((1 > stars || stars > 5 || stars === undefined)) {
-        //     currErrors.stars = 'its 0'
-        // }
-        // setErrors(currErrors)
-    }, [stars, edit,reviews, movieArr])
+    }, [stars, edit,reviews, rankedListObj])
 
     const handleAddMovieToList = (e)=>{
         e.preventDefault()
