@@ -6,6 +6,7 @@ import { useModal } from "../../context/Modal";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { getMovieById } from "../../redux/movie";
 import reviewReducer, { getReviewsByMovieId, createReview, updateReview, deleteReview } from "../../redux/reviews";
+import { getRankedListByUserId, createRankedList } from "../../redux/rankedList";
 import './MovieDetails'
 
 
@@ -13,6 +14,7 @@ const MovieDetails = () => {
     const movieId = useParams()
     const [can, setCan] = useState(true)
     const [edit, setEdit] = useState(false)
+    const [rankedListAdd, setRankedListAdd] = useState(true)
     const [userReview, setUserReview] = useState({})
     const dispatch = useDispatch()
     const navigate = useNavigate()
@@ -26,26 +28,42 @@ const MovieDetails = () => {
     const [selected3, setSelected3] = useState('')
     const [selected4, setSelected4] = useState('')
     const imgUrl = 'https://image.tmdb.org/t/p/original/'
-    let reviews
     
+    const user = Object.values(useSelector(state => state.session))[0]
+    const movie = Object.values(useSelector(state => state.movies))[0]
+    const ranked_list_id = Object.keys(useSelector(state => state.ranked_lists))[0]
+    const rankedListObj = useSelector(state => state.ranked_lists)[`${ranked_list_id}`]
+    const rankedList = rankedListObj ? [...rankedListObj]: null
+    const listName = rankedList ? rankedList.pop() :null
+    const movieArr = rankedList ? rankedList : []
+    // console.log(movieArr)
+    let reviews
     useEffect(() => {
         dispatch(getMovieById(movieId))
         .then(() => {
             dispatch(getReviewsByMovieId(movieId))
         })
+        .then(()=>{
+            dispatch(getRankedListByUserId(user.id))
+        })
         .then(() => {
             setIsLoaded(true)
             setCan(true)
         })
-    }, [isLoaded, reviews])
-    
-    const user = Object.values(useSelector(state => state.session))[0]
-    const movie = Object.values(useSelector(state => state.movies))[0]
+    }, [isLoaded, reviews, rankedListAdd])
     reviews = Object.values(useSelector(state => state.reviews))
     useEffect(() => {
         // console.log(spotId)
         // const currErrors = {}
         // console.log(movie)
+        if(movieArr.length){
+            movieArr.forEach(mov =>{
+                // console.log(mov.movie_id, '----------')
+                // console.log(Number(movieId.movieId), '====-=-=-=-=-=-=')
+                if(movieArr.length >5) setRankedListAdd(false)
+                if(mov.movie_id === Number(movieId.movieId)) setRankedListAdd(false)
+            })
+        }
         
         if(user){
             setCan(true)
@@ -59,48 +77,7 @@ const MovieDetails = () => {
             }  
         }
         
-        if (stars === 0) {
-            setSelected('#000000')
-            setSelected1('#000000')
-            setSelected2('#000000')
-            setSelected3('#000000')
-            setSelected4('#000000')
-        }
-        if (stars === 1) {
-            setSelected('#ff0000')
-            setSelected1('#000000')
-            setSelected2('#000000')
-            setSelected3('#000000')
-            setSelected4('#000000')
-        }
-        if (stars === 2) {
-            setSelected('#ff0000')
-            setSelected1('#ff0000')
-            setSelected2('#000000')
-            setSelected3('#000000')
-            setSelected4('#000000')
-        }
-        if (stars === 3) {
-            setSelected('#ff0000')
-            setSelected1('#ff0000')
-            setSelected2('#ff0000')
-            setSelected3('#000000')
-            setSelected4('#000000')
-        }
-        if (stars === 4) {
-            setSelected('#ff0000')
-            setSelected1('#ff0000')
-            setSelected2('#ff0000')
-            setSelected3('#ff0000')
-            setSelected4('#000000')
-        }
-        if (stars === 5) {
-            setSelected('#ff0000')
-            setSelected1('#ff0000')
-            setSelected2('#ff0000')
-            setSelected3('#ff0000')
-            setSelected4('#ff0000')
-        }
+
         // if (reviewText.length < 10) {
         //     currErrors.reviewText = 'less than 10'
         // }
@@ -108,7 +85,15 @@ const MovieDetails = () => {
         //     currErrors.stars = 'its 0'
         // }
         // setErrors(currErrors)
-    }, [stars, edit,reviews])
+    }, [stars, edit,reviews, movieArr])
+
+    const handleAddMovieToList = (e)=>{
+        e.preventDefault()
+        dispatch(createRankedList({
+            "user_id":user.id,
+            "movie_id":Number(movieId.movieId)
+        })).then(()=>setRankedListAdd(false))
+    }
 
     const handleEditReview = (e)=>{
         e.preventDefault()
@@ -128,8 +113,8 @@ const MovieDetails = () => {
     const handleEditReviewSubmit = (e)=>{
         e.preventDefault()
         const revErrors = {}
-        if (stars <= 0 || stars > 5 || reviewText.length < 10) {
-            revErrors.reviewText = 'Review needs more than 10 characters and 1-5 star value'
+        if (reviewText.length < 10) {
+            revErrors.reviewText = 'Review needs more than 10 characters'
             setErrors(revErrors)
         } else {
             setErrors({})
@@ -162,8 +147,8 @@ const MovieDetails = () => {
     const handleReviewSubmit = (e) => {
         e.preventDefault()
         const revErrors = {}
-        if (stars <= 0 || stars > 5 || reviewText.length < 10) {
-            revErrors.reviewText = 'Review needs more than 10 characters and 1-5 star value'
+        if ( reviewText.length < 10) {
+            revErrors.reviewText = 'Review needs more than 10 characters'
             setErrors(revErrors)
         } else {
             setErrors({})
@@ -180,10 +165,7 @@ const MovieDetails = () => {
         }
 
     }
-    // useEffect(() => 
-    // }, [])ƒƒƒƒƒ
-    // console.log(can, '//////////')
-    // console.log(movie)
+
     return (<>
         {isLoaded && <div >
             <div>
@@ -221,7 +203,7 @@ const MovieDetails = () => {
 
                 {edit ? <div onClick={handleCancel}>Cancel</div>:<></>}
 
-                <div>Add To your Ranked List!</div>
+                {rankedListAdd ? <div onClick={handleAddMovieToList}>Add To your Ranked List!</div>:<div>Movie is added to your List!</div>}
             </div>}
             {!reviews.length && user ? <div>be first to add a review!!</div> : <></>}
             {reviews && reviews.map((review) => {

@@ -8,39 +8,62 @@ import { getRankedListByUserId } from "../../redux/rankedList";
 import { getUserProfile } from "../../redux/profile";
 
 const ProfilePage = () => {
+    const navigate = useNavigate()
     const dispatch = useDispatch()
+    const [edit, setEdit] = useState(false)
+    const [currMovieArr, setCurrMovieArr] = useState([])
     const userId = Number(useParams().profileId)
     const [isLoaded, setIsLoaded] = useState(false)
-    const user = useSelector(state => state.session).user
-    const rankedList = Object.values(useSelector(state => state.ranked_lists))
-    const listName = rankedList[1]
-    const movieArr = [rankedList[0]]
-    const userProfile = useSelector(state => state.profile)[0]
-    const imgUrl = 'https://image.tmdb.org/t/p/original/'
-    console.log(rankedList, '++++++')
     useEffect(() => {
         dispatch(getRankedListByUserId(userId))
             .then(() => dispatch(getUserProfile(userId)))
             .then(() => setIsLoaded(true))
     }, [])
+    const user = useSelector(state => state.session).user
+    const ranked_list_id = Object.keys(useSelector(state => state.ranked_lists))[0]
+    const rankedListObj = useSelector(state => state.ranked_lists)[`${ranked_list_id}`]
+    const rankedList = rankedListObj ? [...rankedListObj]: null
+    const listName = rankedList ? rankedList.pop() :null
+    const movieArr = rankedList ? rankedList : []
+    const userProfile = useSelector(state => state.profile)[0]
+    const imgUrl = 'https://image.tmdb.org/t/p/original/'
+    
+    // console.log(rankedList, '++++++')
+    // console.log(rankedList, '++++++')
     // console.log(user)
+
+
+    useEffect(()=>{
+        if(movieArr.length){
+            if(!(currMovieArr.length ===movieArr.length)){
+                const arr = []
+                movieArr.forEach(mov=>{
+                    arr.push(mov.movie_id)
+                })
+                setCurrMovieArr(arr)
+            }
+            
+        }
+    },[isLoaded, edit])
     if (isLoaded && user.id === userId) {
         return (<>
             {isLoaded && <div>
                 <h1>{user.username}</h1>
                 <h2>Bio</h2>
                 {user.bio ? <div>{user.bio}</div> : <div>Edit your Bio</div>}
-                {movieArr.length ? <div>list name</div> : <div>No Movies in the list</div>}
+                {movieArr.length ? <div>{listName}</div> : <div>No Movies in the list</div>}
                 {movieArr.length ? <div>Delete Entire List</div> : <></>}
-                {movieArr.length === 1 ? <div>{user.username}'s favorite</div> : <></>}
-                {movieArr.length > 1 ? <div>{user.username}'s Top {movieArr.length}</div> : <></>}
-                {movieArr && movieArr.map(movie => {
+                {movieArr.length === 0 ? <></> : <></>}
+                {movieArr.length ? movieArr.map(movie => {
                     return <div key={movie.id}>
                         <h5>{movie.title}</h5>
-                        <div>image</div>
+                        {/* <div onClick={(e)=>{
+                            e.preventDefault()
+                            navigate(`/movies/${movie.movie_id}`)
+                            }}><img src={imgUrl + movie.poster_path}/></div> */}
                         <div>remove</div>
                     </div>
-                })}
+                }) : <></>}
             </div>}
         </>)
     }
