@@ -62,6 +62,20 @@ export const editRankedList = (list)=>async (dispatch)=>{
     return res
 }
 
+export const deleteRankedList = (listId) => async (dispatch)=>{
+    const res = await csrfFetch(`/api/ranked_lists/${listId}`,{
+        method: "DELETE",
+        headers: { 'Content-Type': 'application/json' }
+    })
+
+    if(res.ok){
+        const data = await res.json()
+        dispatch(removeRankedList(data))
+        return data
+    }
+    return res
+}
+
 const rankedListReducer = (state = {}, action) => {
     switch (action.type) {
         case LOAD_RANKED_LIST:
