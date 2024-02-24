@@ -51,6 +51,7 @@ const ProfilePage = () => {
     // console.log(edit)
 
     const handleSetName = ()=>{
+        setEditName(false)
         dispatch(editRankedList({
             "ranked_list_id":ranked_list_id,
             "name":currListName,
@@ -74,6 +75,7 @@ const ProfilePage = () => {
         setCurrMovieArr(temp_arr)
         const isSure = window.confirm('are you sure you want to remove?')
         if (isSure){
+            setEdit(false)
             dispatch(editRankedList({
                 "ranked_list_id":ranked_list_id,
                 "name":currListName,

@@ -87,6 +87,7 @@ const MovieDetails = () => {
 
     const handleAddMovieToList = (e)=>{
         e.preventDefault()
+        setRankedListAdd(false)
         dispatch(createRankedList({
             "user_id":user.id,
             "movie_id":Number(movieId.movieId)
@@ -116,6 +117,7 @@ const MovieDetails = () => {
             setErrors(revErrors)
         } else {
             setErrors({})
+            setEdit(false)
             dispatch(updateReview({
                 "id":userReview.id,
                 "user_id": user.id,
@@ -139,7 +141,6 @@ const MovieDetails = () => {
         setReviewText('')
         setEdit(false)
         setStars(0)
-        console.log('delete happened')
     }
 
     const handleReviewSubmit = (e) => {
@@ -150,6 +151,7 @@ const MovieDetails = () => {
             setErrors(revErrors)
         } else {
             setErrors({})
+            setReviewText('')
             dispatch(createReview({
                 "id":userReview.id,
                 "user_id": user.id,
