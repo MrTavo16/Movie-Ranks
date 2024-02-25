@@ -1,6 +1,6 @@
 from flask.cli import AppGroup
 from .users import seed_users, undo_users
-
+from .movies import seed_movies, undo_movies
 from app.models.db import db, environment, SCHEMA
 
 # Creates a seed group to hold our commands
@@ -19,9 +19,12 @@ def seed():
         if environment == 'production':
         # Before seeding, truncate all tables prefixed with schema name
             db.session.execute(f"TRUNCATE table {SCHEMA}.users RESTART IDENTITY CASCADE;")
+            db.session.execute(f"TRUNCATE table {SCHEMA}.movies RESTART IDENTITY CASCADE;")
         # Add a truncate command here for every table that will be seeded.
         db.session.commit()
         undo_users()
+        undo_movies()
+    seed_movies()
     seed_users()
     # Add other seed functions here
 
@@ -30,4 +33,5 @@ def seed():
 @seed_commands.command('undo')
 def undo():
     undo_users()
+    undo_movies()
     # Add other undo functions here

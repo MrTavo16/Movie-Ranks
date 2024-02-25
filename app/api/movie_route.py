@@ -6,25 +6,39 @@ from app.models import Movie, db, Review, User
 movie_routes = Blueprint("movies", __name__)
 
 
-@movie_routes.route('/', methods=['POST'])
+@movie_routes.route('/')
 def movie_check():
-    data = request.json
-    movies = data['results']
     db_movies = Movie.query.all()
-    if not db_movies:
-        for movie in movies:
-            movie_id = movie['id']
-            title = movie['title']
-            description = movie['overview']
-            poster_path = movie['poster_path']
-            new_movie = Movie(movie_id = movie_id, title = title, description = description, poster_path = poster_path)
-            db.session.add(new_movie)
-            db.session.commit()
-        db_movies = Movie.query.all()
-        return db_movies
+    arr = []
+    for mov in db_movies:
+        movie = mov.to_dict()
+        arr.append(movie)
     # movie = Movie.query.filter(Movie.movie_id == id)
     # if not movie:
-    return movies
+    return arr
+
+
+# @movie_routes.route('/', methods=['POST'])
+# def movie_check():
+#     data = request.json
+#     movies = data['results']
+#     db_movies = Movie.query.all()
+#     if not db_movies:
+#         for movie in movies:
+#             movie_id = movie['id']
+#             title = movie['title']
+#             description = movie['overview']
+#             poster_path = movie['poster_path']
+#             new_movie = Movie(movie_id = movie_id, title = title, description = description, poster_path = poster_path)
+#             db.session.add(new_movie)
+#             db.session.commit()
+#         db_movies = Movie.query.all()
+#         return db_movies
+#     # movie = Movie.query.filter(Movie.movie_id == id)
+#     # if not movie:
+#     return movies
+
+
 
 @movie_routes.route('/<int:id>')
 def movie_by_id(id):

@@ -20,48 +20,57 @@ const ProfilePage = () => {
     const [isLoaded, setIsLoaded] = useState(false)
 
 
-    
-    
+
+
     const user = useSelector(state => state.session).user
     const ranked_list_id = Object.keys(useSelector(state => state.ranked_lists))[0]
     const rankedListObj = useSelector(state => state.ranked_lists[`${ranked_list_id}`])
     let rankedList
-    if(rankedListObj){
-        if(rankedListObj.length){
+    if (rankedListObj) {
+        if (rankedListObj.length) {
             rankedList = rankedListObj ? [...Object.values(rankedListObj)] : null
         }
     }
-    console.log(rankedList)
+    // console.log(rankedList)
     const listName = rankedList ? rankedList.pop() : null
     const movieArr = rankedList ? rankedList : []
     const userProfile = useSelector(state => state.profile)[0]
     const imgUrl = 'https://image.tmdb.org/t/p/original/'
 
     useEffect(() => {
-        if(userId){
-           dispatch(getRankedListByUserId(userId))
-            .then(() => dispatch(getUserProfile(userId)))
-            .then(() => setIsLoaded(true)) 
+        if (userId) {
+            dispatch(getRankedListByUserId(userId))
+                .then(() => dispatch(getUserProfile(userId)))
+                .then(() => setIsLoaded(true))
         }
-        
+
     }, [edit, currMovieArr, editName, currListName, deleted])
 
     // console.log(rankedList, '++++++')
-    // console.log(currMovieArr, '++++++')
+    // console.log(currMovieArr, 'curr movie arr')
+    // console.log(movieArr, 'movie arr')
     // console.log(edit)
 
-    const handleSetName = ()=>{
+    const handleSetName = () => {
         setEditName(false)
+        // console.log(currMovieArr, '---curr movie arr---')
         dispatch(editRankedList({
-            "ranked_list_id":ranked_list_id,
-            "name":currListName,
-            "movies":currMovieArr
-        })).then(()=>setEditName(false))
+            "ranked_list_id": ranked_list_id,
+            "name": currListName,
+            "movies": currMovieArr
+        })).then(() => setEditName(false))
     }
 
 
-    const handleDelete = ()=>{
-        dispatch(deleteRankedList(ranked_list_id)).then(()=>setDeleted(true))
+    const handleDelete = () => {
+        dispatch(deleteRankedList(ranked_list_id)).then(() => {
+            setDeleted(true)
+            setCurrListName('')
+            setCurrMovieArr([])
+            setEditName(false)
+            setEdit(false)
+        
+        })
     }
 
     const handleRemove = (movie) => {
@@ -72,23 +81,27 @@ const ProfilePage = () => {
                 temp_arr.splice(i, 1)
             }
         }
-        setCurrMovieArr(temp_arr)
+        // console.log(temp_arr, 'in remove handle')
         const isSure = window.confirm('are you sure you want to remove?')
-        if (isSure){
+        if (isSure) {
             setEdit(false)
             dispatch(editRankedList({
-                "ranked_list_id":ranked_list_id,
-                "name":currListName,
-                "movies":currMovieArr
-            })).then(()=>setEdit(false))
-        } 
+                "ranked_list_id": ranked_list_id,
+                "name": currListName,
+                "movies": temp_arr
+            })).then(() => {
+                setEdit(false)
+                setCurrListName(temp_arr)
+            })
+        }
     }
     // console.log(currListName)
     useEffect(() => {
-        if(listName && !(listName === currListName))setCurrListName(listName)
+        if (listName && !(listName === currListName)) setCurrListName(listName)
         if (movieArr.length) {
             setCurrListName(listName)
             if (!(currMovieArr.length === movieArr.length)) {
+                // if(!currMovieArr.length && !movieArr.length)
                 const arr = []
                 movieArr.forEach(mov => {
                     arr.push(mov.movie_id)
@@ -96,6 +109,8 @@ const ProfilePage = () => {
                 setCurrMovieArr(arr)
             }
 
+        }else{
+            setCurrMovieArr([])
         }
     }, [isLoaded, edit, editName, deleted])
     if (isLoaded && user.id === userId) {
@@ -105,14 +120,14 @@ const ProfilePage = () => {
                 <h2>Bio</h2>
                 {user.bio ? <div>{user.bio}</div> : <div>Edit your Bio</div>}
                 <div>
-                    {listName&&!editName ? <div>{listName}</div> : <></>}
-                    {editName ? <input type="text" value={currListName} onChange={(e)=>setCurrListName(e.target.value)}/>:<></>}
-                    {movieArr.length? <></>: <div>No Movies in your list</div>}
-                    {listName &&!editName ? <div onClick={()=>setEditName(true)}>Edit list Name</div>:<></>}
-                    {editName ? <div onClick={()=>handleSetName()}>Set Name</div>:<></>}
+                    {listName && !editName ? <div>{listName}</div> : <></>}
+                    {editName ? <input type="text" value={currListName} onChange={(e) => setCurrListName(e.target.value)} /> : <></>}
+                    {movieArr.length ? <></> : <div>No Movies in your list</div>}
+                    {currListName && !editName ? <div onClick={() => setEditName(true)}>Edit list Name</div> : <></>}
+                    {editName ? <div onClick={() => handleSetName()}>Set Name</div> : <></>}
                     {listName ? <div onClick={handleDelete}>Delete Entire List</div> : <></>}
                 </div>
-                {(!movieArr.length && !edit)? <></> : <div onClick={() => setEdit(true)}>Edit List</div>  /*Fix this tomorrow baby */}
+                {(!movieArr.length && !edit) ? <></> : <div onClick={() => setEdit(true)}>Edit List</div>  /*Fix this tomorrow baby */}
                 {movieArr.length ? movieArr.map(movie => {
                     return <div key={movie.id}>
                         <h5>{movie.title}</h5>

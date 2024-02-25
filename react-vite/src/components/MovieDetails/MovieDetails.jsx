@@ -33,30 +33,38 @@ const MovieDetails = () => {
     const movie = Object.values(useSelector(state => state.movies))[0]
     const ranked_list_id = Object.keys(useSelector(state => state.ranked_lists))[0]
     const rankedListObj = useSelector(state => state.ranked_lists[`${ranked_list_id}`])
-    console.log(rankedListObj, '-=-=-=-=-')
+    // console.log(rankedListObj, '-=-=-=-=-')
     const rankedList = rankedListObj ? [...Object.values(rankedListObj)]: null
     const listName = rankedList ? rankedList.pop() :null
     const movieArr = rankedList ? rankedList : []
     let reviews
     useEffect(() => {
         if(movieId){
-            if(user.id){
-                dispatch(getMovieById(movieId))
+            if(user){
+                if(user.id){
+                    dispatch(getRankedListByUserId(user.id))
+                    dispatch(getMovieById(movieId))
+                    .then(() => {
+                        dispatch(getReviewsByMovieId(movieId))
+                    })
+                    .then(() => {
+                        setIsLoaded(true)
+                        setCan(true)
+                    })                 
+                }                
+            }
+
+            dispatch(getMovieById(movieId))
                 .then(() => {
                     dispatch(getReviewsByMovieId(movieId))
-                })
-                .then(()=>{
-                    dispatch(getRankedListByUserId(user.id))
                 })
                 .then(() => {
                     setIsLoaded(true)
                     setCan(true)
-                })                 
-            }
-
+                })   
         }
         
-    }, [isLoaded, reviews, rankedListAdd])
+    }, [isLoaded,reviews,  rankedListAdd])
     reviews = Object.values(useSelector(state => state.reviews))
     useEffect(() => {
         // console.log(spotId)
@@ -153,7 +161,7 @@ const MovieDetails = () => {
             setErrors({})
             setReviewText('')
             dispatch(createReview({
-                "id":userReview.id,
+                // "id":userReview.id,
                 "user_id": user.id,
                 "movie_id": movie.movie_id,
                 "review": reviewText,
@@ -163,9 +171,8 @@ const MovieDetails = () => {
                 setStars(0)
             })
         }
-
     }
-
+    // console.log(reviews)
     return (<>
         {isLoaded && <div >
             <div>
@@ -206,7 +213,7 @@ const MovieDetails = () => {
                 {rankedListAdd ? <div onClick={handleAddMovieToList}>Add To your Ranked List!</div>:<div>Movie is added to your List!</div>}
             </div>}
             {!reviews.length && user ? <div>be first to add a review!!</div> : <></>}
-            {reviews && reviews.map((review) => {
+            {reviews.length && reviews.map((review) => {
                 if (user) {
                     if (user.id === review.user_id) {
                         return <div key={review.id}>
@@ -219,14 +226,14 @@ const MovieDetails = () => {
                             </div>
                         </div>
                     }
-                    return <div key={review.id}>
-                        <h4 onClick={(e)=>{
-                            e.preventDefault()
-                            navigate(`/profile/${review.user_id}`)
-                        }}>{review.username}</h4>
-                        <p>{review.review}</p>
-                    </div>
                 }
+                return <div key={review.id}>
+                    <h4 onClick={(e)=>{
+                        e.preventDefault()
+                        navigate(`/profile/${review.user_id}`)
+                    }}>{review.username}</h4>
+                    <p>{review.review}</p>
+                </div>
             })}
             <div>
 

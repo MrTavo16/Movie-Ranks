@@ -26,7 +26,7 @@ const HomePage = () =>{
         {isLoaded && <div>
             <div id="home">
             {Object.values(movies).map(ele=>{
-                return <div key={ele.id} movie={ele} onClick={()=>navigate(`/movies/${ele.id}`)}>
+                return <div key={ele.id} movie={ele} onClick={()=>navigate(`/movies/${ele.movie_id}`)}>
                     <div className='img-container'>
                         <img src={imgUrl + ele.poster_path}/>
                     </div>
