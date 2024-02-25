@@ -13,6 +13,7 @@ import './MovieDetails'
 const MovieDetails = () => {
     const movieId = useParams()
     const [can, setCan] = useState(true)
+    const [listFull, setListFull] = useState(false)
     const [edit, setEdit] = useState(false)
     const [rankedListAdd, setRankedListAdd] = useState(true)
     const [userReview, setUserReview] = useState({})
@@ -28,96 +29,101 @@ const MovieDetails = () => {
     const [selected3, setSelected3] = useState('')
     const [selected4, setSelected4] = useState('')
     const imgUrl = 'https://image.tmdb.org/t/p/original/'
-    
+
     const user = Object.values(useSelector(state => state.session))[0]
     const movie = Object.values(useSelector(state => state.movies))[0]
     const ranked_list_id = Object.keys(useSelector(state => state.ranked_lists))[0]
     const rankedListObj = useSelector(state => state.ranked_lists[`${ranked_list_id}`])
     // console.log(rankedListObj, '-=-=-=-=-')
-    const rankedList = rankedListObj ? [...Object.values(rankedListObj)]: null
-    const listName = rankedList ? rankedList.pop() :null
+    const rankedList = rankedListObj ? [...Object.values(rankedListObj)] : null
+    const listName = rankedList ? rankedList.pop() : null
     const movieArr = rankedList ? rankedList : []
     let reviews
     useEffect(() => {
-        if(movieId){
-            if(user){
-                if(user.id){
+        if (movieId) {
+            if (user) {
+                if (user.id) {
                     dispatch(getRankedListByUserId(user.id))
                     dispatch(getMovieById(movieId))
-                    .then(() => {
-                        dispatch(getReviewsByMovieId(movieId))
-                    })
-                    .then(() => {
-                        setIsLoaded(true)
-                        setCan(true)
-                    })                 
-                }                
-            }
-
-            dispatch(getMovieById(movieId))
+                        .then(() => {
+                            dispatch(getReviewsByMovieId(movieId))
+                        })
+                        .then(() => {
+                            setIsLoaded(true)
+                            setCan(true)
+                        })
+                }
+            }else{
+                dispatch(getMovieById(movieId))
                 .then(() => {
                     dispatch(getReviewsByMovieId(movieId))
                 })
                 .then(() => {
                     setIsLoaded(true)
                     setCan(true)
-                })   
+                })  
+            }
+
+            
         }
-        
-    }, [isLoaded,reviews,  rankedListAdd])
+
+    }, [isLoaded, reviews, movieId,user, rankedListAdd])
     reviews = Object.values(useSelector(state => state.reviews))
     useEffect(() => {
         // console.log(spotId)
         // const currErrors = {}
         // console.log(movie)
-        if(movieArr.length){
-            movieArr.forEach(mov =>{
+        if (movieArr.length) {
+            if (movieArr.length >= 5) {
+                setListFull(true)
+            }
+            movieArr.forEach(mov => {
                 // console.log(mov.movie_id, '----------')
                 // console.log(Number(movieId.movieId), '====-=-=-=-=-=-=')
-                if(movieArr.length >5) setRankedListAdd(false)
-                if(mov.movie_id === Number(movieId.movieId)) setRankedListAdd(false)
+                if (movieArr.length > 5) setRankedListAdd(false)
+                if (mov.movie_id === Number(movieId.movieId)) setRankedListAdd(false)
             })
         }
-        
-        if(user){
+
+        if (user) {
             setCan(true)
-            for(let i = 0; i <reviews.length;i++){
-                
-                if(reviews[i].user_id === user.id){
+            for (let i = 0; i < reviews.length; i++) {
+
+                if (reviews[i].user_id === user.id) {
                     setCan(false)
                     setUserReview(reviews[i])
                     // console.log(userReview.id)
                 }
-            }  
+            }
         }
-        
-    }, [stars, edit,reviews, rankedListObj])
 
-    const handleAddMovieToList = (e)=>{
+    }, [stars, edit, reviews, rankedListObj])
+
+    const handleAddMovieToList = (e) => {
         e.preventDefault()
         setRankedListAdd(false)
         dispatch(createRankedList({
-            "user_id":user.id,
-            "movie_id":Number(movieId.movieId)
-        })).then(()=>setRankedListAdd(false))
+            "user_id": user.id,
+            "movie_id": Number(movieId.movieId)
+        })).then(() => setRankedListAdd(false))
     }
 
-    const handleEditReview = (e)=>{
+    const handleEditReview = (e) => {
         e.preventDefault()
         setEdit(true)
         setReviewText(userReview.review)
         setStars(userReview.stars)
         // console.log('it does run')
     }
-    
-    const handleCancel =(e) =>{
+
+    const handleCancel = (e) => {
         e.preventDefault()
         setStars(0)
         setEdit(false)
         setReviewText('')
     }
 
-    const handleEditReviewSubmit = (e)=>{
+    const handleEditReviewSubmit = (e) => {
         e.preventDefault()
         const revErrors = {}
         if (reviewText.length < 10) {
@@ -127,7 +133,7 @@ const MovieDetails = () => {
             setErrors({})
             setEdit(false)
             dispatch(updateReview({
-                "id":userReview.id,
+                "id": userReview.id,
                 "user_id": user.id,
                 "movie_id": movie.movie_id,
                 "review": reviewText,
@@ -141,7 +147,7 @@ const MovieDetails = () => {
 
     }
 
-    const handleDelete = (e)=>{
+    const handleDelete = (e) => {
         e.preventDefault()
         setCan(true)
         dispatch(deleteReview(userReview.id))
@@ -154,7 +160,7 @@ const MovieDetails = () => {
     const handleReviewSubmit = (e) => {
         e.preventDefault()
         const revErrors = {}
-        if ( reviewText.length < 10) {
+        if (reviewText.length < 10) {
             revErrors.reviewText = 'Review needs more than 10 characters'
             setErrors(revErrors)
         } else {
@@ -172,7 +178,7 @@ const MovieDetails = () => {
             })
         }
     }
-    // console.log(reviews)
+    // console.log()
     return (<>
         {isLoaded && <div >
             <div>
@@ -204,13 +210,13 @@ const MovieDetails = () => {
                     </div>
                 </div> */}
 
-                {can ? <div onClick={handleReviewSubmit}>Post Review</div>:<div>Only one review per person!</div>}
+                {can ? <div onClick={handleReviewSubmit}>Post Review</div> : <div>Only one review per person!</div>}
 
-                {edit ? <div onClick={handleEditReviewSubmit}>Edit review</div>:<></>}
+                {edit ? <div onClick={handleEditReviewSubmit}>Edit review</div> : <></>}
 
-                {edit ? <div onClick={handleCancel}>Cancel</div>:<></>}
+                {edit ? <div onClick={handleCancel}>Cancel</div> : <></>}
 
-                {rankedListAdd ? <div onClick={handleAddMovieToList}>Add To your Ranked List!</div>:<div>Movie is added to your List!</div>}
+                {rankedListAdd ? <div onClick={handleAddMovieToList}>Add To your Ranked List!</div> : <div></div>}
             </div>}
             {!reviews.length && user ? <div>be first to add a review!!</div> : <></>}
             {reviews.length ? reviews.map((review) => {
@@ -221,20 +227,20 @@ const MovieDetails = () => {
                             <p>{review.review}</p>
                             {/* <div>{review.stars}</div> */}
                             <div>
-                                {!edit ? <div onClick={handleEditReview}>edit</div>:<></>}
+                                {!edit ? <div onClick={handleEditReview}>edit</div> : <></>}
                                 <div onClick={handleDelete}>delete</div>
                             </div>
                         </div>
                     }
                 }
                 return <div key={review.id}>
-                    <h4 onClick={(e)=>{
+                    <h4 onClick={(e) => {
                         e.preventDefault()
                         navigate(`/profile/${review.user_id}`)
                     }}>{review.username}</h4>
                     <p>{review.review}</p>
                 </div>
-            }):<></>}
+            }) : <></>}
             <div>
 
             </div>

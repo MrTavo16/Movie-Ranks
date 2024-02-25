@@ -20,11 +20,12 @@ export const removeReview = (review) => ({
 })
 
 export const getReviewsByMovieId = (movieId) => async (dispatch) => {
+    console.log(Number(movieId.movieId), '-=-=-=-=-=-')
     const res = await fetch(`/api/movies/${Number(movieId.movieId)}/reviews`)
 
     if (res.ok) {
         const data = await res.json()
-        // console.log(data,'--------------')
+        console.log(data,'--------------')
         dispatch(loadReviewsByMovieId(data))
         return data
     }
@@ -80,7 +81,7 @@ export const deleteReview = (reviewId) => async (dispatch) => {
 const reviewReducer = (state = {}, action) => {
     switch (action.type) {
         case LOAD_REVIEWS_BY_MOVIE_ID:
-            const newState = { ...state }
+            const newState = {}
             action.reviews.reviews.forEach((review) => {
                 newState[review.id] = review
             })

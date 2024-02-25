@@ -81,7 +81,7 @@ def add_ranked_list():
         movies = ranked_movies+movie_id+","
         ranked_split = movies.split(',')
         ranked_split.remove("")
-        if len(ranked_split) > 4:
+        if len(ranked_split) > 5:
             return {"message":"cant have more than 5 movies in a Ranked List"}
         ranked_list.movies = movies
         db.session.commit()
