@@ -13,19 +13,18 @@ seed_commands = AppGroup('seed')
 def seed():
     if environment == 'production':
         # Before seeding in production, you want to run the seed undo 
+        undo_users()
         # command, which will  truncate all tables prefixed with 
         # the schema name (see comment in users.py undo_users function).
         # Make sure to add all your other model's undo functions below
-        if environment == 'production':
         # Before seeding, truncate all tables prefixed with schema name
-            db.session.execute(f"TRUNCATE table {SCHEMA}.users RESTART IDENTITY CASCADE;")
+        db.session.execute(f"TRUNCATE table {SCHEMA}.users RESTART IDENTITY CASCADE;")
             # db.session.execute(f"TRUNCATE table {SCHEMA}.movies RESTART IDENTITY CASCADE;")
         # Add a truncate command here for every table that will be seeded.
         db.session.commit()
-        undo_users()
-        undo_movies()
-    seed_movies()
+        # undo_movies()
     seed_users()
+    seed_movies()
     # Add other seed functions here
 
 
