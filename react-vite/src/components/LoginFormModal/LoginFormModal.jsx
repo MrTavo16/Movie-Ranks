@@ -15,7 +15,7 @@ function LoginFormModal() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    navigate('/')
     const serverResponse = await dispatch(
       thunkLogin({
         email,
@@ -34,6 +34,7 @@ function LoginFormModal() {
   const handleDemo = async ()=>{
     setEmail('demo@aa.io')
     setPassword('password')
+    navigate('/')
     const serverResponse = await dispatch(
       thunkLogin({
         "email":"demo@aa.io",

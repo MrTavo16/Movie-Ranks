@@ -1,6 +1,8 @@
 from flask.cli import AppGroup
 from .users import seed_users, undo_users
 from .movies import seed_movies, undo_movies
+from .reviews import seed_reviews, undo_reviews
+from .ranked_lists import seed_ranked_lists, undo_ranked_lists
 from app.models.db import db, environment, SCHEMA
 
 # Creates a seed group to hold our commands
@@ -25,6 +27,8 @@ def seed():
         # undo_movies()
     seed_users()
     seed_movies()
+    seed_ranked_lists()
+    seed_reviews()
     # Add other seed functions here
 
 
@@ -33,4 +37,6 @@ def seed():
 def undo():
     undo_users()
     undo_movies()
+    undo_ranked_lists()
+    undo_reviews()
     # Add other undo functions here

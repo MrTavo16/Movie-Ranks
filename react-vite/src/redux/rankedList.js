@@ -32,7 +32,7 @@ export const getRankedListByUserId = (userId) => async (dispatch) => {
 }
 
 export const createRankedList = (movie) => async (dispatch) => {
-    console.log(movie)
+    // console.log(movie)
     const res = await csrfFetch(`/api/ranked_lists/`,{
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -79,7 +79,7 @@ export const deleteRankedList = (listId) => async (dispatch)=>{
 const rankedListReducer = (state = {}, action) => {
     switch (action.type) {
         case LOAD_RANKED_LIST:
-            const newState = { ...state }
+            const newState = {}
             
             if (action.rankedLists.rankedList) {
                 // console.log(action.rankedLists.rankedList, '-=-=-=-=-')
@@ -90,11 +90,11 @@ const rankedListReducer = (state = {}, action) => {
             return newState
 
         case RECIEVE_RANKED_LIST:
-            console.log(action.rankedList)
+            // console.log(action.rankedList)
             return { ...state, [action.rankedList.ranked_list_id]: action.rankedList }
         case REMOVE_RANKED_LIST:
             const newState1 = { ...state }
-            console.log(action.rankedList, '-=-=-=-=-=-=-=-')
+            // console.log(action.rankedList, '-=-=-=-=-=-=-=-')
             delete newState1[action.rankedList.id]
             return newState1
 

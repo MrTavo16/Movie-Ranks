@@ -113,38 +113,54 @@ const ProfilePage = () => {
             setCurrMovieArr([])
         }
     }, [isLoaded, edit, editName, deleted])
-    if (isLoaded && user.id === userId) {
-        return (<>
-            {isLoaded && <div>
-                <h1>{user.username}</h1>
-                <h2>Bio</h2>
-                {user.bio ? <div>{user.bio}</div> : <div>Edit your Bio</div>}
-                <div>
-                    {listName && !editName ? <div>{listName}</div> : <></>}
-                    {editName ? <input type="text" value={currListName} onChange={(e) => setCurrListName(e.target.value)} /> : <></>}
-                    {movieArr.length ? <></> : <div>No Movies in your list</div>}
-                    {currListName && !editName ? <div onClick={() => setEditName(true)}>Edit list Name</div> : <></>}
-                    {editName ? <div onClick={() => handleSetName()}>Set Name</div> : <></>}
-                    {listName ? <div onClick={handleDelete}>Delete Entire List</div> : <></>}
-                </div>
-                {(!movieArr.length && !edit) ? <></> : <div onClick={() => setEdit(true)}>Edit List</div>  /*Fix this tomorrow baby */}
-                {movieArr.length ? movieArr.map(movie => {
-                    return <div key={movie.id}>
-                        <h5>{movie.title}</h5>
-                        {/* <div onClick={(e)=>{
-                            e.preventDefault()
-                            navigate(`/movies/${movie.movie_id}`)
-                            }}><img src={imgUrl + movie.poster_path}/></div> */}
-                        {edit ? <div onClick={() => handleRemove(movie)}>remove</div> : <></>}
+    if(user){
+        if (isLoaded && user.id === userId) {
+            return (<>
+                {isLoaded && <div>
+                    <h1>{user.username}</h1>
+                    <h2>Bio</h2>
+                    {user.bio ? <div>{user.bio}</div> : <div>Edit your Bio</div>}
+                    <div>
+                        {listName && !editName ? <div>{listName}</div> : <></>}
+                        {editName ? <input type="text" value={currListName} onChange={(e) => setCurrListName(e.target.value)} /> : <></>}
+                        {movieArr.length ? <></> : <div>No Movies in your list</div>}
+                        {currListName && !editName ? <div onClick={() => setEditName(true)}>Edit list Name</div> : <></>}
+                        {editName ? <div onClick={() => handleSetName()}>Set Name</div> : <></>}
+                        {listName ? <div onClick={handleDelete}>Delete Entire List</div> : <></>}
                     </div>
-                }) : <></>}
-            </div>}
-        </>)
+                    <div>
+                    {(!movieArr.length && !edit) ? <></> : <div onClick={() => setEdit(true)}>Edit List</div>  /*Fix this tomorrow baby */}
+                    {movieArr.length ? movieArr.map(movie => {
+                        return <div key={movie.id}>
+                            <h2>{movie.title}</h2>
+                            <div onClick={(e)=>{
+                                e.preventDefault()
+                                navigate(`/movies/${movie.movie_id}`)
+                                }}><img src={imgUrl + movie.poster_path}/></div>
+                            {edit ? <div onClick={() => handleRemove(movie)}>remove</div> : <></>}
+                        </div>
+                    }) : <></>}
+                    </div>
+                </div>}
+            </>)
+        } 
     }
     return (<>
         {isLoaded && <div>
             <h1>{userProfile.username}</h1>
-            {movieArr.length ? <div>list name</div> : <div>No Movies in the list</div>}
+            { listName ? <div>{listName}</div>:<></>}
+            {movieArr.length ? <></> : <div>No Movies in the list</div>}
+            <div>
+            {movieArr.length ? movieArr.map(movie => {
+                    return <div key={movie.id}>
+                        <h2>{movie.title}</h2>
+                        <div onClick={(e)=>{
+                            e.preventDefault()
+                            navigate(`/movies/${movie.movie_id}`)
+                            }}><img src={imgUrl + movie.poster_path}/></div>
+                    </div>
+                }) : <></>}
+                </div>
         </div>}
     </>)
 }

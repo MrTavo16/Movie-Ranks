@@ -224,10 +224,11 @@ const MovieDetails = () => {
 
                 {edit ? <div onClick={handleCancel}>Cancel</div> : <></>}
 
-                {rankedListAdd ? <div onClick={handleAddMovieToList}>Add To your Ranked List!</div> : <div></div>}
+                {rankedListAdd && !listFull ? <div onClick={handleAddMovieToList}>Add To your Ranked List!</div> : <></>}
+                {listFull ? <div>Your Ranked list is full</div>:<></>}
             </div>}
             {!reviews.length && user ? <div>be first to add a review!!</div> : <></>}
-            {reviews.length ? reviews.map((review) => {
+            {reviews.length ? reviews.reverse().map((review) => {
                 if (user) {
                     if (user.id === review.user_id) {
                         return <div key={review.id}>

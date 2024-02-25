@@ -15,6 +15,7 @@ function SignupFormModal() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    navigate('/')
 
     if (password !== confirmPassword) {
       return setErrors({
