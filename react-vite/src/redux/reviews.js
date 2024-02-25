@@ -20,12 +20,12 @@ export const removeReview = (review) => ({
 })
 
 export const getReviewsByMovieId = (movieId) => async (dispatch) => {
-    console.log(Number(movieId.movieId), '-=-=-=-=-=-')
+    // console.log(Number(movieId.movieId), '-=-=-=-=-=-')
     const res = await fetch(`/api/movies/${Number(movieId.movieId)}/reviews`)
 
     if (res.ok) {
         const data = await res.json()
-        console.log(data,'--------------')
+        // console.log(data,'--------------')
         dispatch(loadReviewsByMovieId(data))
         return data
     }

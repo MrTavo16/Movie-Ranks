@@ -166,6 +166,9 @@ const MovieDetails = () => {
         } else {
             setErrors({})
             setReviewText('')
+            console.log(user.id,'[][][][][][][')
+            console.log(movie.movie_id,'[][][][][][][')
+            console.log(reviewText,'[][][][][][][')
             dispatch(createReview({
                 // "id":userReview.id,
                 "user_id": user.id,

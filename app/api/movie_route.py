@@ -40,6 +40,10 @@ def movie_check():
 
 
 
+
+
+
+
 @movie_routes.route('/<int:id>')
 def movie_by_id(id):
     movie = Movie.query.filter(Movie.movie_id == int(id))
@@ -48,32 +52,29 @@ def movie_by_id(id):
     return movie[0].to_dict()
     # return [mov.to_dict() for mov in movie]
 
+
+
+
+
+
+
 @movie_routes.route('/<int:movie_id>/reviews')
 def get_movie_reviews_by_id(movie_id):
     reviews = Review.query.filter(Review.movie_id == movie_id)
     return{"reviews":[review.to_dict() for review in reviews]}
 
+
+
+
+
+
+
 @movie_routes.route('/<int:movie_id>/reviews', methods=['POST'])
+# @login_required
 def add_movie_review(movie_id):
     data = request.json
     users= User.query.get(data['user_id'])
     user = users.to_dict()
-    # hit = False
-    # if not data['review'] or data['stars'] > 6 or data['stars']<=0:
-    #     return{'message':'reviews cant be empty and stars have to be between 1 and 5'}
-    # movie_in_arr = Movie.query.filter(Movie.movie_id == int(movie_id))
-    # movie = movie_in_arr[0].to_dict()
-    # if data['stars'] and data['review']:
-    #     if not movie['num_reviews'] and not movie['star_count']:
-    #         hit = True
-            # movie['num_reviews'] = 1
-            # movie['star_count'] = data['stars']
-            # movie['avg_star_rating'] = data['stars']
-        # else:
-        #     hit = True
-            # movie['num_reviews'] += 1
-            # movie['star_count'] += data['stars']
-            # movie['avg_star_rating'] = movie['star_count'] / movie['num_reviews'] 
 
     user_id = data['user_id']
     username = user['username']
@@ -84,4 +85,5 @@ def add_movie_review(movie_id):
     db.session.add(new_review)
     db.session.commit()
     # return {"hit":f"{username}"}
+    # return {"errors": }, 401
     return new_review.to_dict()
