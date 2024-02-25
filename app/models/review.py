@@ -12,7 +12,7 @@ class Review(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer(), db.ForeignKey(add_prefix_for_prod("users.id")))
-    movie_id = db.Column(db.Integer(), db.ForeignKey(add_prefix_for_prod("movies.id")))
+    movie_id = db.Column(db.Integer(), db.ForeignKey(add_prefix_for_prod("movies.movie_id")))
     username = db.Column(db.String(255))
     review =db.Column(db.String(255), nullable=False)
     stars =db.Column(db.Integer, nullable=False)
