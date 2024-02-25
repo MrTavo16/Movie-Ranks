@@ -213,7 +213,7 @@ const MovieDetails = () => {
                 {rankedListAdd ? <div onClick={handleAddMovieToList}>Add To your Ranked List!</div>:<div>Movie is added to your List!</div>}
             </div>}
             {!reviews.length && user ? <div>be first to add a review!!</div> : <></>}
-            {reviews.length && reviews.map((review) => {
+            {reviews.length ? reviews.map((review) => {
                 if (user) {
                     if (user.id === review.user_id) {
                         return <div key={review.id}>
@@ -234,7 +234,7 @@ const MovieDetails = () => {
                     }}>{review.username}</h4>
                     <p>{review.review}</p>
                 </div>
-            })}
+            }):<></>}
             <div>
 
             </div>

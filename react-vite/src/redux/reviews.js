@@ -37,7 +37,7 @@ export const createReview = (review) => async (dispatch) => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(review)
     })
-    // console.log(res, 'res')
+    console.log(res, 'res')
     if (res.ok) {
         const data = await res.json()
         dispatch(recieveReview(data))
