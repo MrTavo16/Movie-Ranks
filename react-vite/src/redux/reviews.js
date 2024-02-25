@@ -21,7 +21,7 @@ export const removeReview = (review) => ({
 
 export const getReviewsByMovieId = (movieId) => async (dispatch) => {
     // console.log(Number(movieId.movieId), '-=-=-=-=-=-')
-    const res = await fetch(`/api/movies/${Number(movieId.movieId)}/reviews`)
+    const res = await fetch(`/api/movies/${Number(movieId)}/reviews`)
 
     if (res.ok) {
         const data = await res.json()

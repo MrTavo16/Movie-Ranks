@@ -46,7 +46,11 @@ const MovieDetails = () => {
                     dispatch(getRankedListByUserId(user.id))
                     dispatch(getMovieById(movieId))
                         .then(() => {
-                            dispatch(getReviewsByMovieId(movieId))
+                            if(movie){
+                                if(movie.id){
+                                    dispatch(getReviewsByMovieId(movie.id))
+                                }
+                            }
                         })
                         .then(() => {
                             setIsLoaded(true)
@@ -56,7 +60,11 @@ const MovieDetails = () => {
             }else{
                 dispatch(getMovieById(movieId))
                 .then(() => {
-                    dispatch(getReviewsByMovieId(movieId))
+                    if(movie){
+                        if(movie.id){
+                            dispatch(getReviewsByMovieId(movie.id))
+                        }
+                    }
                 })
                 .then(() => {
                     setIsLoaded(true)
@@ -135,7 +143,7 @@ const MovieDetails = () => {
             dispatch(updateReview({
                 "id": userReview.id,
                 "user_id": user.id,
-                "movie_id": movie.movie_id,
+                "movie_id": movie.id,
                 "review": reviewText,
                 "stars": stars
             })).then(() => {
@@ -169,7 +177,7 @@ const MovieDetails = () => {
             dispatch(createReview({
                 // "id":userReview.id,
                 "user_id": user.id,
-                "movie_id": movie.movie_id,
+                "movie_id": movie.id,
                 "review": reviewText,
                 "stars": 1
             })).then(() => {

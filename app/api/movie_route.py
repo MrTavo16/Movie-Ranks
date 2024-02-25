@@ -58,6 +58,10 @@ def movie_by_id(id):
 
 
 
+# @movie_routes.route('/<int:movie_id>/reviews')
+# def get_movie_reviews_by_id(movie_id):
+#     reviews = Review.query.get(movie_id)
+#     return{"reviews":reviews.to_dict()}
 @movie_routes.route('/<int:movie_id>/reviews')
 def get_movie_reviews_by_id(movie_id):
     reviews = Review.query.filter(Review.movie_id == movie_id)
