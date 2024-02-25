@@ -9,12 +9,13 @@
     display: grid;
     padding-top: 30px;
     width: 90%;
+    padding-left: 50px;
     grid-template-columns: repeat(4, 28%) ;
     grid-row-gap: 60px;
 }
 .img-container{
     width: 300px;
-    height: 250px;
+    height: 400px;
     overflow: hidden;
 }
 .img-container img{

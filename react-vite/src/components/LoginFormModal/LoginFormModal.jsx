@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { thunkLogin } from "../../redux/session";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
@@ -11,7 +11,16 @@ function LoginFormModal() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
+  const [subOn, setSubOn] = useState(true)
   const { closeModal } = useModal();
+
+  useEffect(()=>{
+    if(email.length > 4)setSubOn(false)
+    else setSubOn(true)
+
+    if(password.length > 6) setSubOn(false)
+    else setSubOn(true)
+  },[password, email])
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -49,33 +58,39 @@ function LoginFormModal() {
   }
 
   return (
-    <>
+    <div className="login-all">
       <h1>Log In</h1>
       <form onSubmit={handleSubmit}>
-        <label>
-          Email
-          <input
-            type="text"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </label>
-        {errors.email && <p>{errors.email}</p>}
-        <label>
-          Password
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </label>
-        {errors.password && <p>{errors.password}</p>}
-        <button type="submit">Log In</button>
+        <div className="text-box-log">
+          <label>
+            Email
+            <input
+              type="text"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Email"
+              />
+          </label>
+        </div>
+        {errors.email && <p className="errors">{errors.email}</p>}
+        <div className="text-box-log">
+          <label>
+            Password
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Password"
+              />
+          </label>
+        </div>
+        {errors.password && <p className="errors">{errors.password}</p>}
+        <div className="submit-button-log">
+          <button type="submit" className="button-log">Log In</button>
+        </div>
       </form>
         <div onClick={handleDemo}>Demo User</div>
-    </>
+    </div>
   );
 }
 

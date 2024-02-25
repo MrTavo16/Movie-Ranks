@@ -1,19 +1,24 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import ProfileButton from "./ProfileButton";
 import "./Navigation.css";
 
 function Navigation() {
-  return (
-    <ul>
-      <li>
-        <NavLink to="/">Home</NavLink>
-      </li>
+  const navigate = useNavigate()
+  return (<>
+    <div className='navbar'>
+      <div onClick={()=>navigate('/')}>
+      <i style={{fontSize:'40px'}}>
+        Movie Ranks
+        </i>
+      </div>
 
-      <li>
+      <div>
         <ProfileButton />
-      </li>
-    </ul>
-  );
+      </div>
+    </div>
+    <span className='divider'>
+    </span>
+  </>);
 }
 
 export default Navigation;

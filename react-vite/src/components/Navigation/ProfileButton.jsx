@@ -54,15 +54,18 @@ function ProfileButton() {
         <i className="fas fa-user-circle" />
       </button>
       {showMenu && (
-        <ul className={"profile-dropdown"} ref={ulRef}>
+        <div className={"profile-dropdown"} ref={ulRef}>
           {user ? (
             <>
-              <li>{user.username}</li>
-              <li>{user.email}</li>
-              <li onClick={()=>navigate(`/profile/${user.id}`)}>See Details</li>
-              <li>
+              <div>{user.username}</div>
+              <span className="small_divider"></span>
+              <div>{user.email}</div>
+              <span className="small_divider"></span>
+              <div onClick={()=>navigate(`/profile/${user.id}`)}>Profile Details</div>
+              <span className="small_divider"></span>
+              <div>
                 <button onClick={logout}>Log Out</button>
-              </li>
+              </div>
             </>
           ) : (
             <>
@@ -78,7 +81,7 @@ function ProfileButton() {
               />
             </>
           )}
-        </ul>
+        </div>
       )}
     </>
   );
