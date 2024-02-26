@@ -18,7 +18,8 @@
 }
 
 #review_textarea {
-    width: 100%;
+    width: 95%;
+    margin-left: 30px;
     height: 70px;
     resize: none;
 }
@@ -34,6 +35,7 @@
     align-items: center;
     width: 100px;
     height: 40px;
+    margin-left: 30px;
     background-color: lightyellow;
 }
 
@@ -44,6 +46,7 @@
     width: 180px;
     height: 40px;
     background-color: lightseagreen;
+    margin-left: 30px;
 }
 
 #movie_details_edit {
@@ -68,6 +71,7 @@
 #edit_delete_button {
     display: flex;
     justify-content: space-between;
+    margin-left: 30px;
 }
 
 #username_movie_details {
@@ -79,7 +83,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 100%;
+    width: 90%;
 }
 
 #only_one {
@@ -90,11 +94,13 @@
 
 #be_first {
     margin-top: 10px;
+    margin-left: 30px;
 }
 
 #cancel_edit {
     display: flex;
     justify-content: space-between;
+    margin-left: 30px;
 }
 
 #description {
@@ -115,6 +121,6 @@
     color: red;
 }
 
-#title_mov_det{
+#title_mov_det {
     margin-left: 50px;
 }
