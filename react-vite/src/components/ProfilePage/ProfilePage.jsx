@@ -17,6 +17,7 @@ const ProfilePage = () => {
     const [deleted, setDeleted] = useState(false)
     const [currMovieArr, setCurrMovieArr] = useState([])
     const [currListName, setCurrListName] = useState('')
+    const [errors, setErrors] = useState({})
     const userId = Number(useParams().profileId)
     const [isLoaded, setIsLoaded] = useState(false)
 
@@ -54,12 +55,21 @@ const ProfilePage = () => {
 
     const handleSetName = () => {
         setEditName(false)
-        // console.log(currMovieArr, '---curr movie arr---')
-        dispatch(editRankedList({
+        const currErrors = {}
+        if(!currListName.length){
+            currErrors.listName = 'List Name can not be empty'
+            setErrors(currErrors)
+        }else{
+            setErrors({})
+            dispatch(editRankedList({
             "ranked_list_id": ranked_list_id,
             "name": currListName,
             "movies": currMovieArr
-        })).then(() => setEditName(false))
+            }))
+            .then(() => setEditName(false))
+            .then(() => setCurrListName(currListName))
+        }
+        
     }
 
 
@@ -93,7 +103,7 @@ const ProfilePage = () => {
                 "movies": temp_arr
             })).then(() => {
                 setEdit(false)
-                setCurrListName(temp_arr)
+                setCurrMovieArr(temp_arr)
             })
         }
     }
@@ -127,11 +137,11 @@ const ProfilePage = () => {
                     {listName ? <div onClick={handleDelete}>Delete Entire List</div> : <></>}
                     {(!movieArr.length && !edit) ? <></> : <div onClick={() => setEdit(true)}>Edit List</div>  /*Fix this tomorrow baby }
                     </div> */}
-
+                        {errors && <p id="errors_pro">{errors.listName}</p>}
                         {listName && !editName ? <div id="list_name"><h1>{listName}</h1></div> : <></>}
                         {editName ? <div id="list_name"><input type="text" value={currListName} onChange={(e) => setCurrListName(e.target.value)} /></div> : <></>}
                         {editName ? <div id="set_name"onClick={() => handleSetName()}>Set Name</div> : <></>}
-                        {movieArr.length ? <></> : <h3>No Movies in your list</h3>}
+                        {movieArr.length ? <></> : <h3 id="no_movies">No Movies in your list</h3>}
                     <div id="movies_list">
                     {movieArr.length ? movieArr.map(movie => {
                         return <div key={movie.id}>
@@ -155,9 +165,9 @@ const ProfilePage = () => {
     }
     return (<>
         {isLoaded && <div>
-            <h1>{userProfile.username}</h1>
+            <h1 id="username_pro">{userProfile.username}</h1>
             { listName ? <div id="list_name"><h1>{listName}</h1></div>:<></>}
-            {movieArr.length ? <></> : <div>No Movies in the list</div>}
+            {movieArr.length ? <></> : <div id="no_movies">No Movies in {userProfile.username}'s list</div>}
             <div id="movies_list">
             {movieArr.length ? movieArr.map(movie => {
                     return <div key={movie.id}>

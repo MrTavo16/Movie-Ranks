@@ -3,9 +3,10 @@
 }
 
 .preview-img {
-    width: 1000px;
+    width: 1100px;
     height: 1200px;
     overflow: hidden;
+    margin-right: -150px;
 }
 
 .preview-img img {
