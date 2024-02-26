@@ -87,15 +87,15 @@ const ProfilePage = () => {
     const handleRemove = (movie) => {
         // e.preventDefault()
         setEditName(false)
-        const temp_arr = currMovieArr
+
+        const isSure = window.confirm('are you sure you want to remove?')
+        if (isSure) {
+            const temp_arr = currMovieArr
         for (let i = 0; i < temp_arr.length; i++) {
             if (temp_arr[i] === movie.movie_id) {
                 temp_arr.splice(i, 1)
             }
         }
-        // console.log(temp_arr, 'in remove handle')
-        const isSure = window.confirm('are you sure you want to remove?')
-        if (isSure) {
             setEdit(false)
             dispatch(editRankedList({
                 "ranked_list_id": ranked_list_id,
