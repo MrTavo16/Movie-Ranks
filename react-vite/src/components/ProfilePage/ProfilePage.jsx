@@ -7,6 +7,7 @@ import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { getRankedListByUserId, editRankedList, deleteRankedList } from "../../redux/rankedList";
 import { getUserProfile } from "../../redux/profile";
 import { initializeUseSelector } from "react-redux/es/hooks/useSelector";
+import './ProfilePage.css'
 
 const ProfilePage = () => {
     const navigate = useNavigate()
@@ -75,6 +76,7 @@ const ProfilePage = () => {
 
     const handleRemove = (movie) => {
         // e.preventDefault()
+        setEditName(false)
         const temp_arr = currMovieArr
         for (let i = 0; i < temp_arr.length; i++) {
             if (temp_arr[i] === movie.movie_id) {
@@ -116,30 +118,36 @@ const ProfilePage = () => {
     if(user){
         if (isLoaded && user.id === userId) {
             return (<>
-                {isLoaded && <div>
-                    <h1>{user.username}</h1>
-                    <h2>Bio</h2>
-                    {user.bio ? <div>{user.bio}</div> : <div>Edit your Bio</div>}
-                    <div>
-                        {listName && !editName ? <div>{listName}</div> : <></>}
-                        {editName ? <input type="text" value={currListName} onChange={(e) => setCurrListName(e.target.value)} /> : <></>}
-                        {movieArr.length ? <></> : <div>No Movies in your list</div>}
-                        {currListName && !editName ? <div onClick={() => setEditName(true)}>Edit list Name</div> : <></>}
-                        {editName ? <div onClick={() => handleSetName()}>Set Name</div> : <></>}
-                        {listName ? <div onClick={handleDelete}>Delete Entire List</div> : <></>}
-                    </div>
-                    <div>
-                    {(!movieArr.length && !edit) ? <></> : <div onClick={() => setEdit(true)}>Edit List</div>  /*Fix this tomorrow baby */}
+                {isLoaded && <div >
+                    <h1 id="username_pro">{user.username}</h1>
+                    {/* <h2>Bio</h2>
+                    {user.bio ? <div>{user.bio}</div> : <div>Edit your Bio</div>} */}
+
+                    {/* <div>
+                    {listName ? <div onClick={handleDelete}>Delete Entire List</div> : <></>}
+                    {(!movieArr.length && !edit) ? <></> : <div onClick={() => setEdit(true)}>Edit List</div>  /*Fix this tomorrow baby }
+                    </div> */}
+
+                        {listName && !editName ? <div id="list_name"><h1>{listName}</h1></div> : <></>}
+                        {editName ? <div id="list_name"><input type="text" value={currListName} onChange={(e) => setCurrListName(e.target.value)} /></div> : <></>}
+                        {editName ? <div id="set_name"onClick={() => handleSetName()}>Set Name</div> : <></>}
+                        {movieArr.length ? <></> : <h3>No Movies in your list</h3>}
+                    <div id="movies_list">
                     {movieArr.length ? movieArr.map(movie => {
                         return <div key={movie.id}>
-                            <h2>{movie.title}</h2>
-                            <div onClick={(e)=>{
+                            <h3>{movie.title}</h3>
+                            <div className="profile_pre_img" onClick={(e)=>{
                                 e.preventDefault()
                                 navigate(`/movies/${movie.movie_id}`)
-                                }}><img src={imgUrl + movie.poster_path}/></div>
-                            {edit ? <div onClick={() => handleRemove(movie)}>remove</div> : <></>}
+                            }}><img src={imgUrl + movie.poster_path}/></div>
+                            {edit && !editName ? <div className="delete_buttons_pro" onClick={() => handleRemove(movie)}>remove</div> : <></>}
                         </div>
                     }) : <></>}
+                    </div>
+                    <div id="movie_edit_del_buttons">
+                    {currListName && !editName ? <div className="edit_buttons_pro" onClick={() => setEditName(true)}>Edit list Name</div> : <></>}
+                    {(!movieArr.length && !edit) ? <></> : <div className="edit_buttons_pro" onClick={() => setEdit(true)}>Edit List</div>  /*Fix this tomorrow baby */}
+                    {listName ? <div className='delete_buttons_pro' onClick={handleDelete}>Delete List</div> : <></>}
                     </div>
                 </div>}
             </>)
@@ -148,19 +156,19 @@ const ProfilePage = () => {
     return (<>
         {isLoaded && <div>
             <h1>{userProfile.username}</h1>
-            { listName ? <div>{listName}</div>:<></>}
+            { listName ? <div id="list_name"><h1>{listName}</h1></div>:<></>}
             {movieArr.length ? <></> : <div>No Movies in the list</div>}
-            <div>
+            <div id="movies_list">
             {movieArr.length ? movieArr.map(movie => {
                     return <div key={movie.id}>
-                        <h2>{movie.title}</h2>
-                        <div onClick={(e)=>{
+                        <h3>{movie.title}</h3>
+                        <div className="profile_pre_img" onClick={(e)=>{
                             e.preventDefault()
                             navigate(`/movies/${movie.movie_id}`)
                             }}><img src={imgUrl + movie.poster_path}/></div>
                     </div>
                 }) : <></>}
-                </div>
+            </div>
         </div>}
     </>)
 }
