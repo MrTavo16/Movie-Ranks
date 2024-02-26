@@ -192,7 +192,7 @@ const MovieDetails = () => {
     return (<>
         {isLoaded && <div id="movie_details_all">
             <div>
-                {movie && <h1>{movie.title}</h1>}
+                {movie && <h1 id="title_mov_det">{movie.title}</h1>}
                 {movie && <div className="preview-img"><img src={imgUrl + movie.poster_path} /></div>}
             </div>
             <div>

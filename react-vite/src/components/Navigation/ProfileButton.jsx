@@ -77,6 +77,8 @@ function ProfileButton() {
                 onItemClick={closeMenu}
                 modalComponent={<LoginFormModal />}
               />
+              <span className="small_divider"></span>
+              <span className="small_divider"></span>
               <OpenModalMenuItem
                 itemText="Sign Up"
                 onItemClick={closeMenu}
