@@ -1,0 +1,112 @@
+#movie_details_all {
+    display: inline-flex;
+}
+
+.preview-img {
+    width: 1000px;
+    height: 1200px;
+    overflow: hidden;
+}
+
+.preview-img img {
+    width: 80%;
+    height: 100%;
+    object-fit: cover;
+}
+
+#review_textarea {
+    width: 100%;
+    height: 70px;
+    resize: none;
+}
+
+#post_add_buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+#post_button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    height: 40px;
+    background-color: lightyellow;
+}
+
+#add_movie_button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 180px;
+    height: 40px;
+    background-color: lightseagreen;
+}
+
+#movie_details_edit {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    height: 20px;
+    margin-right: 20px;
+    background-color: lightblue;
+}
+
+#movie_details_delete {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    height: 20px;
+    background-color: lightcoral;
+}
+
+#edit_delete_button {
+    display: flex;
+    justify-content: space-between;
+}
+
+#username_movie_details {
+    margin-bottom: -5px;
+}
+
+#review_box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+#only_one {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#be_first {
+    margin-top: 10px;
+}
+
+#cancel_edit {
+    display: flex;
+    justify-content: space-between;
+}
+
+#description {
+    margin-top: 25px;
+}
+
+#full_list {
+    display: flex;
+    height: 40px;
+    width: 200px;
+    justify-content: center;
+    align-items: center;
+    background-color: lightcoral;
+}
+
+#errors_mov_details{
+    color: red;
+}

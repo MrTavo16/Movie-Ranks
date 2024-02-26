@@ -7,7 +7,7 @@ import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { getMovieById } from "../../redux/movie";
 import reviewReducer, { getReviewsByMovieId, createReview, updateReview, deleteReview } from "../../redux/reviews";
 import { getRankedListByUserId, createRankedList } from "../../redux/rankedList";
-import './MovieDetails'
+import './MovieDetails.css'
 
 
 const MovieDetails = () => {
@@ -46,8 +46,8 @@ const MovieDetails = () => {
                     dispatch(getRankedListByUserId(user.id))
                     dispatch(getMovieById(movieId))
                         .then(() => {
-                            if(movie){
-                                if(movie.id){
+                            if (movie) {
+                                if (movie.id) {
                                     dispatch(getReviewsByMovieId(movie.id))
                                 }
                             }
@@ -57,25 +57,25 @@ const MovieDetails = () => {
                             setCan(true)
                         })
                 }
-            }else{
+            } else {
                 dispatch(getMovieById(movieId))
-                .then(() => {
-                    if(movie){
-                        if(movie.id){
-                            dispatch(getReviewsByMovieId(movie.id))
+                    .then(() => {
+                        if (movie) {
+                            if (movie.id) {
+                                dispatch(getReviewsByMovieId(movie.id))
+                            }
                         }
-                    }
-                })
-                .then(() => {
-                    setIsLoaded(true)
-                    setCan(true)
-                })  
+                    })
+                    .then(() => {
+                        setIsLoaded(true)
+                        setCan(true)
+                    })
             }
 
-            
+
         }
 
-    }, [isLoaded, reviews, movieId,user, rankedListAdd])
+    }, [isLoaded, reviews, movieId, user, rankedListAdd])
     reviews = Object.values(useSelector(state => state.reviews))
     useEffect(() => {
         // console.log(spotId)
@@ -126,6 +126,7 @@ const MovieDetails = () => {
 
     const handleCancel = (e) => {
         e.preventDefault()
+        setErrors({})
         setStars(0)
         setEdit(false)
         setReviewText('')
@@ -161,6 +162,7 @@ const MovieDetails = () => {
         dispatch(deleteReview(userReview.id))
         setUserReview({})
         setReviewText('')
+        setErrors({})
         setEdit(false)
         setStars(0)
     }
@@ -188,70 +190,75 @@ const MovieDetails = () => {
     }
     // console.log()
     return (<>
-        {isLoaded && <div >
+        {isLoaded && <div id="movie_details_all">
             <div>
                 {movie && <h1>{movie.title}</h1>}
-                {movie && <div><img src={imgUrl + movie.poster_path} /></div>}
+                {movie && <div className="preview-img"><img src={imgUrl + movie.poster_path} /></div>}
             </div>
-            {movie && <div>{movie.description}</div>}
-            {user && <div>
-                {errors && <p>{errors.reviewText}</p>}
-                <div>
-                    <textarea value={reviewText} onChange={(e) => setReviewText(e.target.value)} placeholder="Write a Review"></textarea>
-                </div>
-                {/* <div className='star-container'>
+            <div>
+                <h2>Description</h2>
+                {movie && <div id="description">{movie.description}</div>}
+                {user && <div>
+                    {errors && <p id="errors_mov_details">{errors.reviewText}</p>}
+                    <div>
+                        <textarea id="review_textarea" value={reviewText} onChange={(e) => setReviewText(e.target.value)} placeholder="Write a Review"></textarea>
+                    </div>
+                    {/* <div className='star-container'>
                     Stars
                     <div id='star-five' onClick={() => setStars(5)}>
-                        <span style={{ color: selected4 }} className="fa-solid fa-star"></span>
+                    <span style={{ color: selected4 }} className="fa-solid fa-star"></span>
                     </div>
                     <div id='star-four' onClick={() => setStars(4)}>
-                        <span style={{ color: selected3 }} className="fa-solid fa-star"></span>
+                    <span style={{ color: selected3 }} className="fa-solid fa-star"></span>
                     </div>
                     <div id='star-three' onClick={() => setStars(3)}>
-                        <span style={{ color: selected2 }} className="fa-solid fa-star"></span>
+                    <span style={{ color: selected2 }} className="fa-solid fa-star"></span>
                     </div>
                     <div id='star-two' onClick={() => setStars(2)}>
-                        <span style={{ color: selected1 }} className="fa-solid fa-star"></span>
+                    <span style={{ color: selected1 }} className="fa-solid fa-star"></span>
                     </div>
                     <div id='star-one' onClick={() => setStars(1)}>
-                        <span className="fa-solid fa-star" style={{ color: selected }}></span>
+                    <span className="fa-solid fa-star" style={{ color: selected }}></span>
                     </div>
                 </div> */}
-
-                {can ? <div onClick={handleReviewSubmit}>Post Review</div> : <div>Only one review per person!</div>}
-
-                {edit ? <div onClick={handleEditReviewSubmit}>Edit review</div> : <></>}
-
-                {edit ? <div onClick={handleCancel}>Cancel</div> : <></>}
-
-                {rankedListAdd && !listFull ? <div onClick={handleAddMovieToList}>Add To your Ranked List!</div> : <></>}
-                {listFull ? <div>Your Ranked list is full</div>:<></>}
-            </div>}
-            {!reviews.length && user ? <div>be first to add a review!!</div> : <></>}
-            {reviews.length ? reviews.reverse().map((review) => {
-                if (user) {
-                    if (user.id === review.user_id) {
-                        return <div key={review.id}>
-                            <h4>{user.username}</h4>
-                            <p>{review.review}</p>
-                            {/* <div>{review.stars}</div> */}
-                            <div>
-                                {!edit ? <div onClick={handleEditReview}>edit</div> : <></>}
-                                <div onClick={handleDelete}>delete</div>
+                    <div id="cancel_edit">
+                    {edit ? <div id="movie_details_edit" onClick={handleEditReviewSubmit}>Edit review</div> : <></>}
+                    {edit ? <div id="movie_details_delete" onClick={handleCancel}>Cancel</div> : <></>}
+                    </div>
+                    <div id="post_add_buttons">
+                    {/* {can ? <div id="post_button" onClick={handleReviewSubmit}>Post Review</div> : <div id="only_one">Only one review per person!</div>} */}
+                    {can ? <div id="post_button" onClick={handleReviewSubmit}>Post Review</div> : <></>}
+                    {rankedListAdd && !listFull ? <div id="add_movie_button" onClick={handleAddMovieToList}>Add To your Ranked List!</div> : <></>}
+                    {listFull ? <div id="full_list">Your Ranked list is full</div> : <></>}
+                    </div> 
+                </div>}
+                {!reviews.length && user ? <div id="be_first">be first to add a review!!</div> : <></>}
+                {reviews.length ? reviews.reverse().map((review) => {
+                    if (user) {
+                        if (user.id === review.user_id) {
+                            return <div key={review.id}>
+                                <div id="review_box">
+                                <h3 id="username_movie_details">{user.username}</h3>
+                                <p>{review.review}</p>
+                                </div>
+                                {/* <div>{review.stars}</div> */}
+                                <div id="edit_delete_button">
+                                    {!edit ? <div id="movie_details_edit" onClick={handleEditReview}>edit</div> : <></>}
+                                    <div id="movie_details_delete" onClick={handleDelete}>delete</div>
+                                </div>
                             </div>
-                        </div>
+                        }
                     }
-                }
-                return <div key={review.id}>
-                    <h4 onClick={(e) => {
-                        e.preventDefault()
-                        navigate(`/profile/${review.user_id}`)
-                    }}>{review.username}</h4>
-                    <p>{review.review}</p>
-                </div>
-            }) : <></>}
-            <div>
-
+                    return <div key={review.id}>
+                        <div id="review_box">
+                        <h4 onClick={(e) => {
+                            e.preventDefault()
+                            navigate(`/profile/${review.user_id}`)
+                        }}>{review.username}</h4>
+                        <p>{review.review}</p>
+                        </div>
+                    </div>
+                }) : <></>}
             </div>
         </div>}
     </>)
