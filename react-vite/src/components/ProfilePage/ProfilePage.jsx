@@ -122,8 +122,10 @@ const ProfilePage = () => {
             }
 
         }else{
+            if(!currListName.length){
+                setEditName(false)
+            }
             setCurrMovieArr([])
-            setEditName(false)
         }
     }, [isLoaded, edit, editName, userId, deleted])
     if(user){
@@ -156,7 +158,7 @@ const ProfilePage = () => {
                     }) : <></>}
                     </div>
                     <div id="movie_edit_del_buttons">
-                    {listName && !editName && !edit ? <div className="edit_buttons_pro" onClick={() => setEditName(true)}>Edit list Name</div> : <></>}
+                    {listName && !editName  ? <div className="edit_buttons_pro" onClick={() => setEditName(true)}>Edit list Name</div> : <></>}
                     {(!movieArr.length && !edit) ? <></> : <div className="edit_buttons_pro" onClick={() => setEdit(true)}>Edit List</div>  /*Fix this tomorrow baby */}
                     {listName ? <div className='delete_buttons_pro' onClick={handleDelete}>Delete List</div> : <></>}
                     </div>
