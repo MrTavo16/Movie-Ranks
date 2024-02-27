@@ -46,7 +46,7 @@ const ProfilePage = () => {
                 .then(() => setIsLoaded(true))
         }
 
-    }, [edit, currMovieArr, editName, currListName, deleted])
+    }, [edit, currMovieArr, editName, currListName, userId,deleted])
 
     // console.log(rankedList, '++++++')
     // console.log(currMovieArr, 'curr movie arr')
