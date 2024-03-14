@@ -91,7 +91,7 @@ const rankedListReducer = (state = {}, action) => {
 
         case RECIEVE_RANKED_LIST:
             // console.log(action.rankedList)
-            return { ...state, [action.rankedList.ranked_list_id]: action.rankedList }
+            return { [action.rankedList.ranked_list_id]: action.rankedList }
         case REMOVE_RANKED_LIST:
             const newState1 = { ...state }
             // console.log(action.rankedList, '-=-=-=-=-=-=-=-')

@@ -45,16 +45,17 @@ const MovieDetails = () => {
                 if (user.id) {
                     dispatch(getRankedListByUserId(user.id))
                     dispatch(getMovieById(movieId))
-                        .then(() => {
-                            if (movie) {
-                                if (movie.id) {
-                                    dispatch(getReviewsByMovieId(movie.id))
-                                }
+                    .then(() => {
+                        if (movie) {
+                            if (movie.id) {
+                                dispatch(getReviewsByMovieId(movie.id))
                             }
-                        })
-                        .then(() => {
+                        }
+                    })
+                    .then(() => {
                             setIsLoaded(true)
                             setCan(true)
+                            setListFull(false)
                         })
                 }
             } else {
@@ -69,6 +70,7 @@ const MovieDetails = () => {
                     .then(() => {
                         setIsLoaded(true)
                         setCan(true)
+                        setListFull(false)
                     })
             }
 
@@ -89,7 +91,9 @@ const MovieDetails = () => {
                 // console.log(mov.movie_id, '----------')
                 // console.log(Number(movieId.movieId), '====-=-=-=-=-=-=')
                 if (movieArr.length > 5) setRankedListAdd(false)
+                else setRankedListAdd(true)
                 if (mov.movie_id === Number(movieId.movieId)) setRankedListAdd(false)
+                else setRankedListAdd(true)
             })
         }
 
