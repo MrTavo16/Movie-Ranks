@@ -73,6 +73,12 @@ def upgrade():
     sa.Column('url', sa.String(255), nullable = False),
     sa.PrimaryKeyConstraint('id'),
     )
+    # op.create_table("posts", 
+    # sa.Column('id', sa.Integer(), nullable=False),
+    # sa.Column('user_id', sa.Integer(), nullable=False),
+    # sa.Column(),
+    # sa.Column()
+    # )
 
     if environment == "production":
         op.execute(f"ALTER TABLE users SET SCHEMA {SCHEMA};")
