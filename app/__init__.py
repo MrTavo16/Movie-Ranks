@@ -10,7 +10,8 @@ from .api.auth_routes import auth_routes
 from .api.movie_route import movie_routes
 from .api.review_route import review_routes
 from .api.ranked_list_routes import ranked_list_routes
-# from .api.
+
+from .api.post_routes import post_routes
 from .seeds import seed_commands
 from .config import Config
 
@@ -35,6 +36,7 @@ app.register_blueprint(auth_routes, url_prefix='/api/auth')
 app.register_blueprint(movie_routes, url_prefix='/api/movies')
 app.register_blueprint(review_routes, url_prefix='/api/reviews')
 app.register_blueprint(ranked_list_routes, url_prefix='/api/ranked_lists')
+app.register_blueprint(post_routes, url_prefix='/api/posts')
 db.init_app(app)
 Migrate(app, db)
 
