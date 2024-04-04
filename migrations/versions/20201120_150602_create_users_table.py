@@ -78,9 +78,23 @@ def upgrade():
     sa.Column('user_id', sa.Integer(), nullable=False),
     sa.Column('post_text', sa.String(255), nullable=False),
     sa.Column('likes', sa.Integer(), default=0),
+    sa.Column('users_liked', sa.String(255)),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'],),
     sa.PrimaryKeyConstraint('id'),
     )
+    op.create_table("comments", 
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('user_id', sa.Integer(), nullable=False),
+    sa.Column('post_id', sa.Integer, nullable=False),
+    sa.Column('comment_id', sa.Integer, nullable=False),
+    sa.Column('comment_text', sa.String(255), nullable=False),
+    sa.Column('likes', sa.Integer(), default=0),
+    sa.Column('users_liked', sa.String(255)),
+    sa.ForeignKeyConstraint(['user_id'], ['users.id'],),
+    sa.ForeignKeyConstraint(['post_id'], ['posts.id'],),
+    sa.PrimaryKeyConstraint('id'),
+    )
+    
 
     if environment == "production":
         op.execute(f"ALTER TABLE users SET SCHEMA {SCHEMA};")
@@ -88,6 +102,7 @@ def upgrade():
         op.execute(f"ALTER TABLE ranked_lists SET SCHEMA {SCHEMA};")
         op.execute(f"ALTER TABLE reviews SET SCHEMA {SCHEMA};")
         op.execute(f"ALTER TABLE posts SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE comments SET SCHEMA {SCHEMA};")
         op.execute(f"ALTER TABLE images SET SCHEMA {SCHEMA};")
     # ### end Alembic commands ###qqqqqqqqq
 

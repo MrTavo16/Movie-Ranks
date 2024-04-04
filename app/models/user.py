@@ -21,6 +21,7 @@ class User(db.Model, UserMixin):
     ranked_list = relationship("Ranked_List", back_populates="user")
     review = relationship("Review", back_populates="user")
     post = relationship('Post', back_populates="user")
+    comment = relationship("Comment", back_populates='user')
 
     @property
     def password(self):
