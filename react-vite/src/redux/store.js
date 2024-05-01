@@ -10,13 +10,17 @@ import movieReducer from "./movie";
 import reviewReducer from "./reviews";
 import rankedListReducer from './rankedList'
 import profileReducer from "./profile";
+import postReducer from "./post";
+import commentReducer from "./comment";
 
 const rootReducer = combineReducers({
   session: sessionReducer,
   movies:movieReducer,
   reviews:reviewReducer,
   ranked_lists: rankedListReducer,
-  profile: profileReducer
+  profile: profileReducer,
+  posts: postReducer,
+  comments:commentReducer
 });
 
 let enhancer;

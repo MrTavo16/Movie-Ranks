@@ -10,6 +10,7 @@ class Post(db.Model):
     
     id = db.Column(db.Integer(), primary_key = True)
     user_id = db.Column(db.Integer(), db.ForeignKey(add_prefix_for_prod("users.id")))
+    username = db.Column(db.String(255), nullable=False)
     post_text = db.Column(db.String(255), nullable=False)
     likes = db.Column(db.Integer(), default=0)
     users_liked = db.Column(db.String(255))
@@ -20,6 +21,7 @@ class Post(db.Model):
         return {
             'id': self.id,
             'user_id': self.user_id,
+            'username': self.username,
             'post_text':self.post_text,
             'likes':self.likes,
             'users_liked' : self.users_liked

@@ -11,6 +11,7 @@ class Comment(db.Model):
     id = db.Column(db.Integer(), primary_key = True)
     user_id = db.Column(db.Integer(), db.ForeignKey(add_prefix_for_prod("users.id")))
     post_id = db.Column(db.Integer(), db.ForeignKey(add_prefix_for_prod("posts.id")))
+    username = db.Column(db.String(255), nullable=False)
     comment_id = db.Column(db.Integer())
     comment_text = db.Column(db.String(255), nullable=False)
     likes = db.Column(db.Integer(), default=0)
@@ -23,6 +24,7 @@ class Comment(db.Model):
             'id': self.id,
             'user_id': self.user_id,
             'post_id':self.post_id,
+            'username': self.username,
             'comment_id':self.comment_id,
             'comment_text':self.comment_text,
             'likes':self.likes,
