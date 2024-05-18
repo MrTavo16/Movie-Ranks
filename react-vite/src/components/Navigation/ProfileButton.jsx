@@ -59,12 +59,17 @@ function ProfileButton() {
             <>
               <div>{user.username}</div>
               <span className="small_divider"></span>
-              <div>{user.email}</div>
-              <span className="small_divider"></span>
+              {/* <div>{user.email}</div>
+              <span className="small_divider"></span> */}
               <div onClick={()=>{
                 navigate(`/profile/${user.id}`)
                 closeMenu()
               }}>Profile Details</div>
+              <span className="small_divider"></span>
+              <div onClick={()=>{
+                navigate(`/posts`)
+                closeMenu()
+              }}>Posts</div>
               <span className="small_divider"></span>
               <div>
                 <button onClick={logout}>Log Out</button>
