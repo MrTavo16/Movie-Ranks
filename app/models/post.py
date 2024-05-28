@@ -16,6 +16,7 @@ class Post(db.Model):
     users_liked = db.Column(db.String(255))
 
     user = relationship("User", back_populates='post')
+    comment = relationship("Comment", back_populates='post', cascade='all, delete')
 
     def to_dict(self):
         return {

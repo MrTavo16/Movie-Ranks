@@ -10,12 +10,11 @@ def comment_check(post_id):
     db_comments = Comment.query.filter(Comment.post_id == post_id)
 
     obj = {}
+    obj['comments'] = []
 
     for comments in db_comments:
         comment = comments.to_dict()
-        if not comment['comment_id']:
-            obj[f'{comment["id"]}'] = [comment, []]
-        else: obj[f'{comment["comment_id"]}'][1].append(comment)
+        obj['comments'].append(comment)
     return obj
 
 @comment_routes.route('/', methods={'POST'})
@@ -24,15 +23,18 @@ def create_comment():
     users= User.query.get(int(data['user_id']))
     user = users.to_dict()
 
+    comment_id = data['comment_id']
     user_id = data['user_id']
     username = user['username']
+    post_id = data['post_id']
     comment_text = data['comment_text']
     likes = 0
 
-    comment = Comment(user_id=user_id, username=username, comment_text=comment_text,likes=likes)
+    comment = Comment(user_id=user_id, username=username, post_id=post_id, comment_id=comment_id, comment_text=comment_text,likes=likes)
 
     db.session.add(comment)
     db.session.commit()
+    return comment.to_dict()
 
 @comment_routes.route('/<int:comment_id>/likes', methods={'PUT'})
 def comment_like(comment_id):

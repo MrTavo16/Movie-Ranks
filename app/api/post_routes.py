@@ -19,14 +19,9 @@ def post_check():
 @post_routes.route('/<int:id>')
 def post_info(id):
     db_posts = Post.query.get(id)
-    db_comments = Comment.query.filter(Comment.post_id == id)
-
-    obj = {}
-    obj['post'] = db_posts.to_dict()
     
+    return db_posts.to_dict()
 
-
-    return obj
 
 @post_routes.route('/', methods=['POST'])
 def create_post():

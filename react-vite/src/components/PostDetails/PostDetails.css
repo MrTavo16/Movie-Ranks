@@ -1,0 +1,255 @@
+#main_post {
+    border-color: black;
+    border-radius: 10px;
+    border: solid;
+    display: flex;
+    width: 90%;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 15px;
+    margin-left: 5%;
+}
+
+#edit_and_cancel {
+    display: flex;
+    width: 60%;
+    justify-content: space-evenly;
+}
+
+#main_post_text {
+    width: 60%;
+    resize: none;
+    height: 50px;
+}
+
+#cancel_for_editing_post {
+    background-color: lightcoral;
+    color: white;
+    width: 70px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#edit_for_editing_post {
+    background-color: lightblue;
+    color: white;
+    width: 70px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#main_likes_comments {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 90%;
+    height: 53px;
+}
+
+.comment_icon {
+    height: 20px;
+}
+
+#comment_text_bottom {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}
+
+.first_row_of_comments {
+    border-color: black;
+    border-radius: 10px;
+    border: solid;
+    display: inline-block;
+    width: 90%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 15px;
+    margin-left: 5%;
+}
+
+.second_row_of_comments {
+    border-color: black;
+    border-radius: 10px;
+    border: solid;
+    display: inline-block;
+    width: 94.9%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 15px;
+    margin-left: 5%;
+}
+
+.third_row_of_comments {
+    border-color: black;
+    border-radius: 10px;
+    border: solid;
+    display: inline-block;
+    width: 94.9%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 15px;
+    margin-left: 5%;
+}
+
+.fourth_row_of_comments {
+    border-color: black;
+    border-radius: 10px;
+    border: solid;
+    display: inline-block;
+    width: 94.9%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 15px;
+    margin-left: 5%;
+}
+
+.fifth_row_of_comments {
+    border-color: black;
+    border-radius: 10px;
+    border: solid;
+    display: inline-block;
+    width: 94.9%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 15px;
+    margin-left: 5%;
+}
+
+.comment_likes_comments {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 90%;
+    height: 53px;
+}
+
+.username {
+    display: flex;
+    justify-content: center;
+}
+
+.comment_text {
+    display: flex;
+    justify-content: center;
+}
+
+.comment_text_selected {
+    display: flex;
+    justify-content: center;
+    color: blue;
+}
+
+.comment_edit_cancel {
+    margin-left: 20%;
+    display: flex;
+    width: 60%;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.comment_text_area {
+    width: 60%;
+    resize: none;
+    height: 50px;
+}
+
+.cancel_for_comment_editing {
+    background-color: lightcoral;
+    border-radius: 5px;
+    color: white;
+    width: 61%;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.edit_for_comment_editing {
+    background-color: lightblue;
+    border-radius: 5px;
+    color: white;
+    width: 61%;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.outer_delete {
+    background-color: red;
+    width: 60px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+.outer_edit {
+    background-color: blue;
+    width: 60px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+.reply {
+    background-color: darkmagenta;
+    width: 60px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+.reply_textarea {
+    width: 100%;
+    height: 60px;
+}
+
+#reply_text {
+    color: purple;
+    margin-bottom: -0.7px;
+    font-size: larger;
+}
+
+.reply_post_and_cancel {
+    display: flex;
+    justify-content: space-between;
+    margin-top: -5px;
+}
+
+.reply_cancel {
+    background-color: red;
+    width: 300px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+.reply_post {
+    background-color: blue;
+    width: 300px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}

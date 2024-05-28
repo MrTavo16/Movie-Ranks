@@ -18,6 +18,7 @@ class Comment(db.Model):
     users_liked = db.Column(db.String(255))
 
     user = relationship("User", back_populates='comment')
+    post = relationship("Post", back_populates='comment')
 
     def to_dict(self):
         return {
