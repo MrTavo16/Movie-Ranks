@@ -5,6 +5,8 @@ import HomePage from '../components/HomePage/HomePage';
 import Layout from './Layout';
 import MovieDetails from '../components/MovieDetails/MovieDetails';
 import ProfilePage from '../components/ProfilePage/ProfilePage';
+import PostHome from '../components/PostHome/PostHome';
+import PostDetails from '../components/PostDetails/PostDetails'
 
 export const router = createBrowserRouter([
   {
@@ -29,6 +31,14 @@ export const router = createBrowserRouter([
       {
         path:'profile/:profileId',
         element:<ProfilePage />
+      },
+      {
+        path:'posts',
+        element:<PostHome />
+      },
+      {
+        path:'/posts/:postId',
+        element:<PostDetails />
       }
     ],
   },

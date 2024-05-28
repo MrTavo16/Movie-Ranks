@@ -3,6 +3,8 @@ from .users import seed_users, undo_users
 from .movies import seed_movies, undo_movies
 from .reviews import seed_reviews, undo_reviews
 from .ranked_lists import seed_ranked_lists, undo_ranked_lists
+from .comments import seed_comments, undo_comments
+from .posts import seed_posts, undo_posts
 from app.models.db import db, environment, SCHEMA
 
 # Creates a seed group to hold our commands
@@ -29,6 +31,8 @@ def seed():
     seed_movies()
     seed_ranked_lists()
     seed_reviews()
+    seed_posts()
+    seed_comments()
     # Add other seed functions here
 
 
@@ -39,4 +43,6 @@ def undo():
     undo_movies()
     undo_ranked_lists()
     undo_reviews()
+    undo_posts()
+    undo_comments()
     # Add other undo functions here
