@@ -34,7 +34,6 @@ const MovieDetails = () => {
     const movie = Object.values(useSelector(state => state.movies))[0]
     const ranked_list_id = Object.keys(useSelector(state => state.ranked_lists))[0]
     const rankedListObj = useSelector(state => state.ranked_lists[`${ranked_list_id}`])
-    // console.log(rankedListObj, '-=-=-=-=-')
     const rankedList = rankedListObj ? [...Object.values(rankedListObj)] : null
     const listName = rankedList ? rankedList.pop() : null
     const movieArr = rankedList ? rankedList : []
@@ -80,16 +79,11 @@ const MovieDetails = () => {
     }, [isLoaded, reviews, movieId, user, rankedListAdd])
     reviews = Object.values(useSelector(state => state.reviews))
     useEffect(() => {
-        // console.log(spotId)
-        // const currErrors = {}
-        // console.log(movie)
         if (movieArr.length) {
             if (movieArr.length >= 5) {
                 setListFull(true)
             }
             movieArr.forEach(mov => {
-                // console.log(mov.movie_id, '----------')
-                // console.log(Number(movieId.movieId), '====-=-=-=-=-=-=')
                 if (movieArr.length > 5) setRankedListAdd(false)
                 else setRankedListAdd(true)
                 if (mov.movie_id === Number(movieId.movieId)) setRankedListAdd(false)
@@ -104,7 +98,6 @@ const MovieDetails = () => {
                 if (reviews[i].user_id === user.id) {
                     setCan(false)
                     setUserReview(reviews[i])
-                    // console.log(userReview.id)
                 }
             }
         }
@@ -125,7 +118,6 @@ const MovieDetails = () => {
         setEdit(true)
         setReviewText(userReview.review)
         setStars(userReview.stars)
-        // console.log('it does run')
     }
 
     const handleCancel = (e) => {
@@ -192,7 +184,6 @@ const MovieDetails = () => {
             })
         }
     }
-    // console.log()
     return (<>
         {isLoaded && <div id="movie_details_all">
             <div>

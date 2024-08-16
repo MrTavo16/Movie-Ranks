@@ -14,7 +14,6 @@ const PostHome = () => {
     const user = Object.values(useSelector(state => state.session))[0]
     const navigate = useNavigate()
     const dispatch = useDispatch()
-    // console.log(user)
     useEffect(() => {
         dispatch(getAllPosts()).then(() => setIsLoaded(true))
     }, [isLoaded])

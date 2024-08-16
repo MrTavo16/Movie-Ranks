@@ -16,7 +16,6 @@ const HomePage = () =>{
     const movies = useSelector(state => state.movies)
     const [isLoaded, setIsLoaded] = useState(false)
     const imgUrl = 'https://image.tmdb.org/t/p/original/'
-    // console.log(Object.values(movies))
 
     useEffect(()=>{
         dispatch(getAllMovies()).then(()=>setIsLoaded(true))

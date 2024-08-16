@@ -21,7 +21,6 @@ export const getUserProfile = (userId) => async (dispatch) => {
 const profileReducer = (state = {}, action) => {
     switch (action.type) {
         case LOAD_USERS_PROFILE:
-            // console.log(action.user, '=======')
             const newState = { ...state}
             newState[0] = action.user
             return newState

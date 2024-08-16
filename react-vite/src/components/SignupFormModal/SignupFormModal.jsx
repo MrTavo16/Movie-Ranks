@@ -19,8 +19,6 @@ function SignupFormModal() {
 
   useEffect(() => {
     const currErrors = {}
-    // console.log(submited)
-    // console.log(!email.length || !username.length || !firstName.length || !lastName.length || !password.length || !confirmPassword.length)
     if (!email.length || !username.length || !password.length || !confirmPassword.length) setEmpty(false)
     else setEmpty(true)
     if(username.length < 4 || password.length < 6|| !confirmPassword.length) setEmpty(true)
@@ -29,7 +27,6 @@ function SignupFormModal() {
       if (!email.length) {
         currErrors.email = 'Email is required'
       }
-      // console.log(submited)
       if (!username.length || username.length < 4) {
         currErrors.username = 'Username is required and must be more than 4 characters'
       }

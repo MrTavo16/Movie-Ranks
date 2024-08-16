@@ -20,12 +20,10 @@ export const removeReview = (review) => ({
 })
 
 export const getReviewsByMovieId = (movieId) => async (dispatch) => {
-    // console.log(Number(movieId.movieId), '-=-=-=-=-=-')
     const res = await fetch(`/api/movies/${Number(movieId)}/reviews`)
 
     if (res.ok) {
         const data = await res.json()
-        // console.log(data,'--------------')
         dispatch(loadReviewsByMovieId(data))
         return data
     }
@@ -38,7 +36,6 @@ export const createReview = (review) => async (dispatch) => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(review)
     })
-    // console.log(res, 'res')
     if (res.ok) {
         const data = await res.json()
         dispatch(recieveReview(data))
@@ -48,7 +45,6 @@ export const createReview = (review) => async (dispatch) => {
 }
 
 export const updateReview = (review) => async (dispatch) => {
-    // console.log(review, '---------')
     const res = await csrfFetch(`/api/reviews/${review.id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },

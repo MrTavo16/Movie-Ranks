@@ -33,7 +33,6 @@ const ProfilePage = () => {
             rankedList = rankedListObj ? [...Object.values(rankedListObj)] : null
         }
     }
-    // console.log(rankedList)
     const listName = rankedList ? rankedList.pop() : null
     const movieArr = rankedList ? rankedList : []
     const userProfile = useSelector(state => state.profile)[0]
@@ -48,10 +47,6 @@ const ProfilePage = () => {
 
     }, [edit, currMovieArr, editName, currListName, userId,deleted])
 
-    // console.log(rankedList, '++++++')
-    // console.log(currMovieArr, 'curr movie arr')
-    // console.log(movieArr, 'movie arr')
-    // console.log(edit)
 
     const handleSetName = () => {
         setEditName(false)
@@ -107,7 +102,6 @@ const ProfilePage = () => {
             })
         }
     }
-    // console.log(currListName)
     useEffect(() => {
         if (listName && !(listName === currListName)) setCurrListName(listName)
         if (movieArr.length) {

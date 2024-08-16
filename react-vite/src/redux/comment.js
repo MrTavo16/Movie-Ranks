@@ -21,7 +21,6 @@ export const removeComment = (comment)=>({
 
 export const getAllComments = (postId) =>async (dispatch)=>{
     const res = await fetch(`/api/comments/${postId}`)
-    // console.log(res)
     if (res.ok) {
         const data = await res.json()
         dispatch(loadComments(data))
@@ -100,7 +99,6 @@ const commentReducer = (state = {}, action)=>{
             })
             return newState
         case RECIEVE_COMMENTS:
-            // console.log(action, 'action')
             return {...state,[action.comments.id]:action.comments }
 
         case REMOVE_COMMENT:

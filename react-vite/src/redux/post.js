@@ -27,7 +27,6 @@ export const removePost = (post)=>({
 
 export const getAllPosts = () => async (dispatch) => {
     const res = await fetch(`api/posts/`)
-    console.log(res)
     if (res.ok) {
         const data = await res.json()
         dispatch(loadPosts(data))
@@ -107,11 +106,8 @@ const postReducer = (state = {}, action) => {
     switch (action.type) {
         case LOAD_POSTS:
             newState = {}
-            // let count = 0
-            // console.log(action.posts.posts, '===-=-=-=-=-')
             action.posts.posts.forEach(post=>{
                 newState[post.id] = post
-                // count++
             })
             return newState
         case RECIEVE_POST:

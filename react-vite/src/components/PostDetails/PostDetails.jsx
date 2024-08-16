@@ -281,7 +281,6 @@ const PostDetails = () => {
                                     <div>
                                         {ele2.children && ele2.children.map(ele3 => {
                                             let usersLiked
-                                            // console.log(ele3.users_liked, '[][][][')
                                             if (ele3.users_liked) {
                                                 usersLiked = ele3.users_liked.split(',')
                                                 usersLiked.pop()
@@ -307,7 +306,6 @@ const PostDetails = () => {
                                                             }))
                                                         }}></i> : <i className="fa-regular fa-thumbs-up" onClick={(e) => {
                                                             e.preventDefault()
-                                                            // console.log(usersLiked.includes(String(user.id)), '-=-==-=-=')
                                                             dispatch(likeComment({
                                                                 id: ele3.id,
                                                                 user_id_like: user.id
