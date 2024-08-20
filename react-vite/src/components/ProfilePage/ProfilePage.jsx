@@ -137,24 +137,24 @@ const ProfilePage = () => {
                         {errors && <p id="errors_pro">{errors.listName}</p>}
                         {listName && !editName ? <div id="list_name"><h1>{listName}</h1></div> : <></>}
                         {editName ? <div id="list_name"><input type="text" value={currListName} onChange={(e) => setCurrListName(e.target.value)} /></div> : <></>}
-                        {editName ? <div id="set_name"onClick={() => handleSetName()}>Set Name</div> : <></>}
+                        {editName ? <div style={{cursor:'pointer'}} id="set_name"onClick={() => handleSetName()}>Set Name</div> : <></>}
                         {movieArr.length ? <></> : <h3 id="no_movies">No Movies in your list</h3>}
                     <div id="movies_list">
                     {movieArr.length ? movieArr.map(movie => {
                         return <div key={movie.id}>
                             <h3>{movie.title}</h3>
-                            <div className="profile_pre_img" onClick={(e)=>{
+                            <div style={{cursor:'pointer'}} className="profile_pre_img" onClick={(e)=>{
                                 e.preventDefault()
                                 navigate(`/movies/${movie.movie_id}`)
                             }}><img src={imgUrl + movie.poster_path}/></div>
-                            {edit && !editName ? <div className="delete_buttons_pro" onClick={() => handleRemove(movie)}>remove</div> : <></>}
+                            {edit && !editName ? <div style={{cursor:'pointer'}} className="delete_buttons_pro" onClick={() => handleRemove(movie)}>remove</div> : <></>}
                         </div>
                     }) : <></>}
                     </div>
                     <div id="movie_edit_del_buttons">
-                    {listName && !editName  ? <div className="edit_buttons_pro" onClick={() => setEditName(true)}>Edit list Name</div> : <></>}
-                    {(!movieArr.length && !edit) ? <></> : <div className="edit_buttons_pro" onClick={() => setEdit(true)}>Edit List</div>  /*Fix this tomorrow baby */}
-                    {listName ? <div className='delete_buttons_pro' onClick={handleDelete}>Delete List</div> : <></>}
+                    {listName && !editName  ? <div style={{cursor:'pointer'}} className="edit_buttons_pro" onClick={() => setEditName(true)}>Edit list Name</div> : <></>}
+                    {(!movieArr.length && !edit) ? <></> : <div style={{cursor:'pointer'}} className="edit_buttons_pro" onClick={() => setEdit(true)}>Edit List</div>  /*Fix this tomorrow baby */}
+                    {listName ? <div style={{cursor:'pointer'}} className='delete_buttons_pro' onClick={handleDelete}>Delete List</div> : <></>}
                     </div>
                 </div>}
             </>)
@@ -169,7 +169,7 @@ const ProfilePage = () => {
             {movieArr.length ? movieArr.map(movie => {
                     return <div key={movie.id}>
                         <h3>{movie.title}</h3>
-                        <div className="profile_pre_img" onClick={(e)=>{
+                        <div style={{cursor:'pointer'}} className="profile_pre_img" onClick={(e)=>{
                             e.preventDefault()
                             navigate(`/movies/${movie.movie_id}`)
                             }}><img src={imgUrl + movie.poster_path}/></div>

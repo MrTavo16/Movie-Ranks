@@ -217,13 +217,13 @@ const MovieDetails = () => {
                     </div>
                 </div> */}
                     <div id="cancel_edit">
-                    {edit ? <div id="movie_details_edit" onClick={handleEditReviewSubmit}>Edit review</div> : <></>}
-                    {edit ? <div id="movie_details_delete" onClick={handleCancel}>Cancel</div> : <></>}
+                    {edit ? <div style={{cursor:'pointer'}} id="movie_details_edit" onClick={handleEditReviewSubmit}>Edit review</div> : <></>}
+                    {edit ? <div style={{cursor:'pointer'}} id="movie_details_delete" onClick={handleCancel}>Cancel</div> : <></>}
                     </div>
                     <div id="post_add_buttons">
                     {/* {can ? <div id="post_button" onClick={handleReviewSubmit}>Post Review</div> : <div id="only_one">Only one review per person!</div>} */}
-                    {can ? <div id="post_button" onClick={handleReviewSubmit}>Post Review</div> : <></>}
-                    {rankedListAdd && !listFull ? <div id="add_movie_button" onClick={handleAddMovieToList}>Add To your Ranked List!</div> : <></>}
+                    {can ? <div id="post_button" style={{cursor:'pointer'}} onClick={handleReviewSubmit}>Post Review</div> : <></>}
+                    {rankedListAdd && !listFull ? <div style={{cursor:'pointer'}} id="add_movie_button" onClick={handleAddMovieToList}>Add To your Ranked List!</div> : <></>}
                     {listFull ? <div id="full_list">Your Ranked list is full</div> : <></>}
                     </div> 
                 </div>}
@@ -238,15 +238,15 @@ const MovieDetails = () => {
                                 </div>
                                 {/* <div>{review.stars}</div> */}
                                 <div id="edit_delete_button">
-                                    {!edit ? <div id="movie_details_edit" onClick={handleEditReview}>edit</div> : <></>}
-                                    <div id="movie_details_delete" onClick={handleDelete}>delete</div>
+                                    {!edit ? <div style={{cursor:'pointer'}} id="movie_details_edit" onClick={handleEditReview}>edit</div> : <></>}
+                                    <div style={{cursor:'pointer'}} id="movie_details_delete" onClick={handleDelete}>delete</div>
                                 </div>
                             </div>
                         }
                     }
                     return <div key={review.id}>
                         <div id="review_box">
-                        <h4 onClick={(e) => {
+                        <h4 style={{cursor:'pointer'}} onClick={(e) => {
                             e.preventDefault()
                             navigate(`/profile/${review.user_id}`)
                         }}>{review.username}</h4>

@@ -86,10 +86,10 @@ function LoginFormModal() {
         </div>
         {errors.password && <p className="errors">{errors.password}</p>}
         <div className="submit-button-log">
-          <button type="submit" className="button-log">Log In</button>
+          <button style={{cursor:'pointer'}} type="submit" className="button-log">Log In</button>
         </div>
       </form>
-        <div onClick={handleDemo}>Demo User</div>
+        <div style={{cursor:'pointer'}} id="demo" onClick={handleDemo}>Demo User</div>
     </div>
   );
 }

@@ -50,9 +50,9 @@ function ProfileButton() {
 
   return (
     <>
-      <button onClick={toggleMenu}>
-        <i className="fas fa-user-circle" />
-      </button>
+      {!showMenu && <button onClick={toggleMenu}>
+        <i style={{cursor:'pointer'}} className="fas fa-user-circle" />
+      </button>}
       {showMenu && (
         <div className={"profile-dropdown"} ref={ulRef}>
           {user ? (
@@ -61,18 +61,18 @@ function ProfileButton() {
               <span className="small_divider"></span>
               {/* <div>{user.email}</div>
               <span className="small_divider"></span> */}
-              <div onClick={()=>{
+              <div style={{cursor:'pointer'}} onClick={()=>{
                 navigate(`/profile/${user.id}`)
                 closeMenu()
               }}>Profile Details</div>
               <span className="small_divider"></span>
-              <div onClick={()=>{
+              <div style={{cursor:'pointer'}} onClick={()=>{
                 navigate(`/posts`)
                 closeMenu()
               }}>Posts</div>
               <span className="small_divider"></span>
               <div>
-                <button onClick={logout}>Log Out</button>
+                <button style={{cursor:'pointer'}} onClick={logout}>Log Out</button>
               </div>
             </>
           ) : (

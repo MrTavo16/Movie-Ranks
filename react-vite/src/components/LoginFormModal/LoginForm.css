@@ -17,7 +17,6 @@
 .text-box-log input {
     display: flex;
     width: 165%;
-    background-color: lightblue;
 }
 
 .submit-button-log {
@@ -38,8 +37,12 @@
 #demo {
     display: flex;
     justify-content: center;
-    padding-top: 10px;
+    align-items: center;
+    border: solid;
     color: blue;
+    margin-top: 5px;
+    height: 10%;
+    width: 71%;
 }
 
 .errors {

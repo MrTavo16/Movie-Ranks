@@ -7,6 +7,7 @@ import MovieDetails from '../components/MovieDetails/MovieDetails';
 import ProfilePage from '../components/ProfilePage/ProfilePage';
 import PostHome from '../components/PostHome/PostHome';
 import PostDetails from '../components/PostDetails/PostDetails'
+import CreatorLinks from '../components/CreatorLinks/CreatorLinks';
 
 export const router = createBrowserRouter([
   {
@@ -23,6 +24,10 @@ export const router = createBrowserRouter([
       {
         path: "signup",
         element: <SignupFormPage />,
+      },
+      {
+        path:"creator-links",
+        element:<CreatorLinks />
       },
       {
         path:"movies/:movieId",

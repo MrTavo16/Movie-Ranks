@@ -17,7 +17,7 @@
 .text-box input {
     display: flex;
     width: 207%;
-    background-color: lightblue;
+    /* background-color: lightblue; */
 }
 
 .submit-button {
