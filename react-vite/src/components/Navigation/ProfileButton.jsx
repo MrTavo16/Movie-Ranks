@@ -7,6 +7,7 @@ import SignupFormModal from "../SignupFormModal";
 import { useModal } from "../../context/Modal";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { thunkLogin } from "../../redux/session";
+import './ProfileButton.css'
 
 
 function ProfileButton() {
@@ -50,29 +51,22 @@ function ProfileButton() {
 
   return (
     <>
-      {!showMenu && <button onClick={toggleMenu}>
-        <i style={{cursor:'pointer'}} className="fas fa-user-circle" />
-      </button>}
+      {!showMenu && <div onClick={toggleMenu} className="profile-button">Menu</div>}
       {showMenu && (
         <div className={"profile-dropdown"} ref={ulRef}>
           {user ? (
             <>
-              <div>{user.username}</div>
+              <div className="user-name-item">{user.username}</div>
               <span className="small_divider"></span>
               {/* <div>{user.email}</div>
               <span className="small_divider"></span> */}
-              <div style={{cursor:'pointer'}} onClick={()=>{
+              <div className="user-item" onClick={()=>{
                 navigate(`/profile/${user.id}`)
                 closeMenu()
               }}>Profile Details</div>
               <span className="small_divider"></span>
-              <div style={{cursor:'pointer'}} onClick={()=>{
-                navigate(`/posts`)
-                closeMenu()
-              }}>Posts</div>
-              <span className="small_divider"></span>
-              <div>
-                <button style={{cursor:'pointer'}} onClick={logout}>Log Out</button>
+              <div className="user-item" onClick={logout}>
+                Log Out
               </div>
             </>
           ) : (

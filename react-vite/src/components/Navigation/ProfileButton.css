@@ -1,0 +1,51 @@
+.profile-button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 33px;
+    height: 40px;
+    font-size: larger;
+    font-weight: bolder;
+    cursor: pointer;
+}
+
+.profile-button:hover{
+    color:lightblue;
+}
+
+.modal-item{
+    border: solid;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.modal-item:hover{
+    background-color: lightblue;
+}
+
+.user-name-item{
+    border: solid;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.user-item{
+    border: solid;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    cursor: pointer;
+    justify-content: center;
+    align-items: center;
+}
+
+.user-item:hover{
+    background-color: lightblue;
+}

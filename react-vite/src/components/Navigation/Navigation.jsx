@@ -13,11 +13,13 @@ function Navigation() {
         <div style={{cursor:'pointer', color:"blue"}} onClick={(e)=>{
           e.stopPropagation()
           navigate('creator-links')
-          }
-          }>Creator Links</div>
+        }
+      }>Creator Links</div>
       </div>
+      <div onClick={()=>navigate('/posts')} className="post-nav">Posts</div>
+      <div onClick={()=>navigate('/')} className="movie-nav">Movies</div>
 
-      <div style={{display:"flex", flexDirection:'column'}}>
+      <div style={{display:"flex", flexDirection:'column',marginTop:'10px'}}>
         <ProfileButton />
       </div>
     </div>

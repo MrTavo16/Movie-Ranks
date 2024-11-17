@@ -64,7 +64,7 @@ const PostHome = () => {
                     e.preventDefault()
                     navigate(`/posts/${ele.id}`)}
                 } key={ele.id}>
-                    {user.id === ele.user_id ? <h4>{ele.username} 'You'</h4>:<h4>{ele.username}</h4>}
+                    {(user && user.id === ele.user_id) ? <h4>{ele.username} 'You'</h4>:<h4>{ele.username}</h4>}
                     <div>
                     <h2>{ele.post_text}</h2>
                     </div>
